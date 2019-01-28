@@ -1,0 +1,13 @@
+
+<!-- views/rides-edit.handlebars -->
+
+<form method="POST" action="/rides/view/{{ride._id}}?_method=PUT">
+    {{> rides-form}}
+    <!-- BUTTON -->
+    <p>
+        <button type="submit" class="btn btn-primary btn-sm">Save Ride</button>
+    </p>
+</form>
+<form method="GET" action="/">
+    <button type="cancel" class="btn btn-primary btn-sm">Cancel</button>
+ </form>

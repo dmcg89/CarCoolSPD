@@ -1,0 +1,31 @@
+<!-- views/rides-show.handlebars -->
+<div class="nice-buttons">
+    <h1>{{ride.route}}</h1>
+    <h2>{{ride.time}}</h2>
+    <p>{{ride.description}}</p>
+    <p>{{ride.dropDown}}</p>
+
+</div>
+
+    <p>
+        <form method="GET" action="/rides/view/{{ride._id}}/edit">
+            <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+        </form>
+    </p>
+
+    <!--Delete Button-->
+    <p>
+        <form method="POST" action="/rides/view/{{ride._id}}?_method=DELETE">
+            <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+        </form>
+    </p>
+
+
+
+<style>
+    .nice-buttons {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+    }
+</style>
