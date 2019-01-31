@@ -1,0 +1,75 @@
+/* Global */
+:root {
+    --background-color: #F7F7F7;
+    --text-color: #0F0F0F;
+    --nav-color: #529aec;
+    --button-color: #EBEBEB;
+    --highlight-color: #F74038;
+    --nav-placeholder: #355172;
+
+}
+
+html,
+body {
+    color: var(--text-color);
+    background: var(--background-color);
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/* NavBar */
+.navbar {
+    background: var(--nav-color);
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .title {
+    color: var(--text-color);
+    font-size: 1.7em;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.highlight {
+    color: var(--highlight-color);
+}
+
+.navbar .buttons {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar button {
+    padding: 10px;
+    background: var(--button-color);
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.navbar .search {
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .search .term {
+    background: var(--nav-color);
+    color: var(--text-color);
+    padding: 7px;
+    border: 0px;
+    border-bottom: 1px solid;
+    font-size: 1em;
+}
+
+.navbar .search .term::placeholder {
+    color: var(--nav-placeholder);
+}

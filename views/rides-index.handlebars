@@ -2,11 +2,6 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
 
     <title>CarCool Ride Share</title>
 
@@ -20,13 +15,7 @@
     <h1>Find your ride!</h1>
     <div class="jumbotron">
         {{#each rides}}
-            <h1 class="display-4">{{this.route}}</h1>
-            <h2 class="lead">{{this.time}}</h2>
-            <h2 class="lead">{{this.description}}</h2>
-            <hr class="my-4">
-
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="/rides/view/{{this._id}}" role="button">View Details</a>
+            {{> ride-show}}
         {{/each}}
         </p>
     </div>
