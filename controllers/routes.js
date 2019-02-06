@@ -21,8 +21,9 @@ module.exports = function(app, Ride) {
     // show
 
     app.get('/rides/view/:id', (req, res) => {
+        var currentUser = req.user;
         Ride.findById(req.params.id).then((ride) => {
-            res.render('rides-show', { ride: ride })
+            res.render('rides-show', { ride: ride, currentUser })
         }).catch((err) => {
             console.log(err.message);
         })
@@ -40,8 +41,9 @@ module.exports = function(app, Ride) {
     })
     // edit page
     app.get('/rides/view/:id/edit', (req, res) => {
+        var currentUser = req.user;
         Ride.findById(req.params.id, function(err, ride) {
-            res.render('rides-edit', { ride: ride });
+            res.render('rides-edit', { ride: ride, currentUser });
         })
     })
 
@@ -67,12 +69,14 @@ module.exports = function(app, Ride) {
     })
 
     app.get('/rides', (req, res) => {
-        res.render('rides-index', {})
+        var currentUser = req.user;
+        res.render('rides-index', {currentUser})
     })
 
 
     app.get('/rides/new', (req, res) => {
-        res.render('rides-new', {});
+        var currentUser = req.user;
+        res.render('rides-new', {currentUser});
     })
 
     // SIGN UP FORM
