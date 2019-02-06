@@ -10,11 +10,13 @@
         <div class="vl"></div>
         <a href="/logout" class="button">Log Out</a>
         <div class="vl"></div>
-
     </form>
 
     <form class="search">
         <input class="term" type="search" placeholder="Search" aria-label="Search" for="button">
         <button class="button hidden" type="submit">Search</button>
     </form>
+    {{#if currentUser}}
+        <p>signed in as {{currentUser.username}} </p>
+    {{/if}}
 </nav>
