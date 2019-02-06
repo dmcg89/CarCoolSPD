@@ -2,16 +2,16 @@ const Ride = require('../models/ride');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-
 //index
 
 module.exports = function(app, Ride) {
-    app.get('/', (request, response) => {
+    app.get('/', (req, res) => {
+      var currentUser = req.user;
+      console.log("this ran");
+      console.log(currentUser);
         Ride.find()
         .then(rides => {
-            response.render('rides-index', {
-                rides: rides
-            });
+            res.render('rides-index', {rides: rides, currentUser});
         })
         .catch(err => {
             console.log(err);
@@ -21,10 +21,9 @@ module.exports = function(app, Ride) {
     // show
 
     app.get('/rides/view/:id', (req, res) => {
+        var currentUser = req.user;
         Ride.findById(req.params.id).then((ride) => {
-            res.render('rides-show', {
-                ride: ride
-            })
+            res.render('rides-show', { ride: ride, currentUser })
         }).catch((err) => {
             console.log(err.message);
         })
@@ -32,7 +31,7 @@ module.exports = function(app, Ride) {
 
     // delete
 
-    app.delete('/rides/view/:id', function(req, res) {
+    app.delete('/rides/view/:id', function (req, res) {
         console.log("Delete Ride");
         Ride.findByIdAndRemove(req.params.id).then((ride) => {
             res.redirect('/');
@@ -42,10 +41,9 @@ module.exports = function(app, Ride) {
     })
     // edit page
     app.get('/rides/view/:id/edit', (req, res) => {
+        var currentUser = req.user;
         Ride.findById(req.params.id, function(err, ride) {
-            res.render('rides-edit', {
-                ride: ride
-            });
+            res.render('rides-edit', { ride: ride, currentUser });
         })
     })
 
@@ -71,12 +69,14 @@ module.exports = function(app, Ride) {
     })
 
     app.get('/rides', (req, res) => {
-        res.render('rides-index', {})
+        var currentUser = req.user;
+        res.render('rides-index', {currentUser})
     })
 
 
     app.get('/rides/new', (req, res) => {
-        res.render('rides-new', {});
+        var currentUser = req.user;
+        res.render('rides-new', {currentUser});
     })
 
     // SIGN UP FORM
@@ -85,7 +85,7 @@ module.exports = function(app, Ride) {
     });
 
     // Login form
-    app.get('/login', (req, res) => {
+    app.get('/login', (req, res) =>{
         res.render('login')
     })
 
@@ -96,70 +96,53 @@ module.exports = function(app, Ride) {
     });
 
     // SIGN UP POST
-    app.post('/sign-up', (req, res) => {
+      app.post('/sign-up', (req, res) => {
         // Create User and JWT
-        User.findOne({username : req.body.username}).then((user) => {
-            if(user){
-                console.log(user);
-                res.send("Username already exists");
-            }else{
-                // Create User and JWT
-                const user = new User();
-                user.username = req.body.username;
-                user.email = req.body.email;
-                user.password = user.generateHash(req.body.password);
-                console.log(user);
-                console.log('here')
-                user.save().then((user) => {
-                    var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
+        const user = new User(req.body);
 
-                    res.cookie('nToken', token, { maxAge: 900000, httpOnly: true});
-                    console.log(res.cookie());
-                    res.redirect('/');
-                }).catch((err) => {
-                    return res.status(400).send({ err: err });
-                });
-            }
-        })
-    });
+        user.save().then((user) => {
+          var token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, { expiresIn: "60 days" });
+          res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
+          res.redirect('/');
+        }).catch((err) => {
+          console.log(err.message);
+          return res.status(400).send({ err: err });
+        });
+      });
+
     // LOGIN
-    app.post('/login', (req, res) => {
+    app.post("/login", (req, res) => {
+      console.log("this ran the login post")
         const username = req.body.username;
         const password = req.body.password;
+        console.log(username);
+        console.log(password);
         // Find this user name
-        User.findOne({
-            username
-        }, 'username password').then((user) => {
-            if (!user) {
-                // User not found
-                return res.status(401).send({
-                    message: 'Wrong Username or Password'
-                });
-            }
-            // Check the password
-            user.comparePassword(password, (err, isMatch) => {
-                if (!isMatch) {
-                    // Password does not match
-                    return res.status(401).send({
-                        message: "Wrong Username or password"
-                    });
+        User.findOne({ username }, "username password")
+            .then(user => {
+                if (!user) {
+                    // User not found
+                    return res.status(401).send({ message: "Wrong Username or Password" });
                 }
-                // Create a token
-                const token = jwt.sign({
-                    _id: user._id,
-                    username: user.username
-                }, process.env.SECRET, {
-                    expiresIn: "60 days"
+                // Check the password
+                user.comparePassword(password, (err, isMatch) => {
+                    if (!isMatch) {
+                        // Password does not match
+                        return res.status(401).send({ message: "Wrong Username or password" });
+                    }
+
+                    // Create a token
+                    console.log(user)
+                    const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
+                        expiresIn: "60 days"
+                    });
+                    // Set a cookie and redirect to root
+                    res.cookie("nToken", token, { maxAge: 900000, httpOnly: true });
+                    res.redirect("/");
                 });
-                // Set a cookie and redirect to root
-                res.cookie('nToken', token, {
-                    maxAge: 900000,
-                    httpOnly: true
-                });
-                res.redirect('/');
+            })
+            .catch(err => {
+                console.log(err);
             });
-        }).catch((err) => {
-            console.log(err);
-        });
     });
 }
