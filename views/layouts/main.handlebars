@@ -9,6 +9,10 @@
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">CarCool</a>
         <form class="form-inline">
+            {{#if currentUser}}
+                      <li>Signed-in as {{currentUser.username}}<li>
+
+            {{/if}}
             <a href="/rides/new"><button class="btn btn-outline-success" type="button">New Ride Post</button></a>
             <a href="/login"><button class="btn btn-outline-success" type="button">LogIn</button></a>
             <a href="/sign-up"><button class="btn btn-outline-success" type="button">Sign up</button></a>
