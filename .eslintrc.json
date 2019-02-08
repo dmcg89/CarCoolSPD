@@ -1,5 +1,6 @@
 {
     "extends": "airbnb-base",
-    "rules": {"no-console": "off"},
+    "rules": {"no-console": "off",
+            "prefer-destructuring": "off"},
     "env": {"jquery": "true"}
 }
