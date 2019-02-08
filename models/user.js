@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
+const Ride = require('./ride.js');
 
 const UserSchema = new Schema({
   createdAt       : { type: Date },
   updatedAt       : { type: Date },
-  haveCar         : { type: Boolean},
+  hasCar         : { type: Boolean },
   password        : { type: String, select: false },
-  username        : { type: String, required: true }
+  username        : { type: String, required: true },
+  rides           : [{ type: Schema.Types.ObjectId, ref: 'Ride' }]
 });
 
 // Must use function here! ES6 => functions do not bind this!

@@ -4,13 +4,19 @@
   <legend>Edit Ride Post</legend>
   <!-- TITLE -->
   <p>
-    <label for="ride-title">Route (start/finish)</label><br>
+    <label for="ride-route">Route (start/finish)</label><br>
     <input id="ride-route" type="text" name="route" value="{{ride.route}}"/>
   </p>
 
-  <!-- Article TITLE -->
+  <!--Seats -->
   <p>
-    <label for="article-title">Date/Time</label><br>
+    <label for="seats">Number of Seats</label><br>
+    <input id="seats" type="number" name="seats" value="{{ride.seats}}"/>
+  </p>
+
+  <!-- Date/time -->
+  <p>
+    <label for="ride-time">Date/Time</label><br>
     <input id="ride-time" type="text" name="time" value="{{ride.time}}" />
   </p>
 
@@ -19,4 +25,9 @@
     <label for="ride-description">Description</label><br>
     <textarea id="ride-description" name="description" rows="10" />{{ride.description}}</textarea>
   </p>
+<p>
+  <label for="hasDriver">Do you want to drive this route?</label><br>
+  <input id="hasDriver" type="radio" name="hasDriver" value=1>Yes<br>
+  <input id="hasDriver" type="radio" name="hasDriver" value=0>No<br>
+</p>
 </fieldset>

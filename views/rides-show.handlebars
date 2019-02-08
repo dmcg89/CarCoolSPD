@@ -1,10 +1,14 @@
 <!-- views/rides-show.handlebars -->
 <div class="nice-buttons">
-    <h1>{{ride.route}}</h1>
-    <h2>{{ride.time}}</h2>
-    <p>{{ride.description}}</p>
-    <p>{{ride.dropDown}}</p>
-
+  {{#if ride.hasDriver}}
+    <h1>Ride Offered</h1>
+  {{else}}
+    <h1>Ride Wanted</h1>
+  {{/if}}
+    <h1>Route: {{ride.route}}</h1>
+    <h2>Time: {{ride.time}}</h2>
+    <p>Seats: {{ride.seats}}</p>
+    <p>Description: {{ride.description}}</p>
 </div>
 
     <p>

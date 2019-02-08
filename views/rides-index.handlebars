@@ -20,6 +20,11 @@
     <h1>Find your ride!</h1>
     <div class="jumbotron">
         {{#each rides}}
+          {{#if ride.hasDriver}}
+            <h1>Ride Offered</h1>
+          {{else}}
+            <h1>Ride Wanted</h1>
+          {{/if}}
             <h1 class="display-4">{{this.route}}</h1>
             <h2 class="lead">{{this.time}}</h2>
             <h2 class="lead">{{this.description}}</h2>
