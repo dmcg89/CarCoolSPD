@@ -1,22 +1,23 @@
+const jwt = require('jsonwebtoken');
 const Ride = require('../models/ride');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+
 
 //index
 
-module.exports = function(app, Ride) {
-    app.get('/', (req, res) => {
-      var currentUser = req.user;
-      console.log("this ran");
-      console.log(currentUser);
-        Ride.find()
-        .then(rides => {
-            res.render('rides-index', {rides: rides, currentUser});
-        })
-        .catch(err => {
-            console.log(err);
-        });
+module.exports = function (app, Ride) {
+  app.get('/', (req, res) => {
+    const currentUser = req.user;
+    console.log('this ran');
+    console.log(currentUser);
+    Ride.find()
+      .then(rides => {
+        res.render('rides-index', { rides: rides, currentUser });
+    })
+      .catch(err => {
+        console.log(err);
     });
+});
 
     // show
 
@@ -48,14 +49,43 @@ module.exports = function(app, Ride) {
     })
 
 
-    app.post('/rides/view', (req, res) => {
-        Ride.create(req.body).then((ride) => {
-            console.log(ride);
-            res.redirect(`/rides/view/${ride._id}`);
-        }).catch((err) => {
+    // app.post('/rides/view', (req, res) => {
+    //     console.log(req.body);
+    //     Ride.create(req.body).then((ride) => {
+    //         console.log(ride);
+    //         res.redirect(`/rides/view/${ride._id}`);
+    //     }).catch((err) => {
+    //         console.log(err.message);
+    //     })
+    // })
+
+    app.post("/rides/view", (req, res) => {
+      console.log(req.user)
+      if (req.user) {
+        var ride = new Ride(req.body);
+        ride.author = req.user._id;
+        console.log(ride.author)
+
+        ride
+          .save()
+          .then(ride => {
+            return User.findById(req.user._id);
+          })
+          .then(user => {
+            user.rides.unshift(ride);
+            user.save();
+            // REDIRECT TO THE NEW POST
+            res.redirect("/rides/view/" + ride._id);
+          })
+          .catch(err => {
+            console.log("failed!")
             console.log(err.message);
-        })
-    })
+          });
+    } else {
+        console.log("failed authentication!")
+        return res.status(401); // UNAUTHORIZED
+    }
+});
 
 
     app.put('/rides/view/:id', (req, res) => {
