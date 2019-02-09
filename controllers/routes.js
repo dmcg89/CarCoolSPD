@@ -1,22 +1,23 @@
+const jwt = require('jsonwebtoken');
 const Ride = require('../models/ride');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+
 
 //index
 
-module.exports = function(app, Ride) {
-    app.get('/', (req, res) => {
-      var currentUser = req.user;
-      console.log("this ran");
-      console.log(currentUser);
-        Ride.find()
-        .then(rides => {
-            res.render('rides-index', {rides: rides, currentUser});
-        })
-        .catch(err => {
-            console.log(err);
-        });
+module.exports = function (app, Ride) {
+  app.get('/', (req, res) => {
+    const currentUser = req.user;
+    console.log('this ran');
+    console.log(currentUser);
+    Ride.find()
+      .then(rides => {
+        res.render('rides-index', { rides: rides, currentUser });
+    })
+      .catch(err => {
+        console.log(err);
     });
+});
 
     // show
 
