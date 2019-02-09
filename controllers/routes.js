@@ -17,12 +17,12 @@ module.exports = function (app, Ride) {
       .catch(err => {
         console.log(err);
     });
-});
+  });
 
-    // show
+  // show
 
-    app.get('/rides/view/:id', (req, res) => {
-        var currentUser = req.user;
+  app.get('/rides/view/:id', (req, res) => {
+    const currentUser = req.user;
         Ride.findById(req.params.id).then((ride) => {
             res.render('rides-show', { ride: ride, currentUser })
         }).catch((err) => {
