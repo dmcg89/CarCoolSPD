@@ -106,38 +106,58 @@ body {
     color: var(--nav-placeholder);
 }
 
-/* Ride partial */
+/* Rides */
+
+.splash {
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
 .rides {
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    justify-content: center;
+    align-items: center;
+    
 }
 
-.route {
-    padding: 10px 0px;
-    border-radius: 5px;
+.rides .link {
+    margin: 0px;
+    padding: 0px;
+    width: 50%;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.ride {
+    width: 100%;
+    margin: 10px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 2px var(--route-hover) solid;
     -webkit-transition: background .2s;
     transition: background .2s;
 }
 
-.route-link {
-    text-decoration: none;
-    color: var(--text-color);
-
+.ride:hover {
+    background: var(--route-hover)
 }
 
-.route:hover {
-    background: var(--route-hover);
-}
-
-.route .desc-holder {
-    margin: 10px;
-
-}
-
-.route .description {
+.details {
+    padding: 10px;
+    /* background: var(--button-color); */
     font-size: 1.2em;
+    /* font-weight: bold; */
+    /* border: 1px solid black; */
+    text-decoration: none;
+    border-radius: 5px;
+    color: var(--text-color);
+    -webkit-transition: background .2s;
+    transition: background .2s;
 }
+
 
 

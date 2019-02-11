@@ -15,9 +15,17 @@
     <h1 class="splash">Find your ride!</h1>
     <div class="rides">
         {{#each rides}}
-            {{> ride-show}}
+        <a href="/rides/view/{{this._id}}" class="link"><div class='ride'>
+            <h1 class="display-4">{{this.route}}</h1>
+            <h3 class="time">{{this.time}}</h3>
+            <h3 class="desc">{{this.description}}</h3>
+            {{#if this.hasDriver}}
+            <h2 class="offered">Ride Offered</h2>
+            {{else}}
+            <h2 class="wanted">Ride Wanted</h2>
+            {{/if}}
+        </div></a>
         {{/each}}
-        </p>
     </div>
 
 
@@ -27,9 +35,7 @@
         </p>
     </footer>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+
 
 </body>
 
