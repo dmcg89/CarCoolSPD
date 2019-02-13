@@ -3,6 +3,7 @@
     --background-color: #F7F7F7;
     --text-color: #0F0F0F;
     --nav-color: #529aec;
+    --input-hover: #529aec22;
     --button-hover: #3e77b9;
     --highlight-color: #F74038;
     --nav-placeholder: #355172;
@@ -16,6 +17,8 @@ body {
     background: var(--background-color);
     margin: 0px;
     padding: 0px;
+    height: 100%;
+    width: 100%;
     font-family: lato, sans-serif;
 
 }
@@ -31,6 +34,12 @@ body {
 .hidden {
     display: none;
 }
+
+.container {
+    margin: 20px;
+}
+
+
 
 /* NavBar */
 .navbar {
@@ -106,6 +115,11 @@ body {
     color: var(--nav-placeholder);
 }
 
+.username {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
 /* Rides */
 
 .splash {
@@ -158,6 +172,87 @@ body {
     -webkit-transition: background .2s;
     transition: background .2s;
 }
+
+
+/* New post */
+
+
+
+
+/* Login / signup */
+
+.login {
+    width: 70%;
+    height: 70vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.login .legend {
+    font-size: 3.5em;
+    padding: 0px;
+    margin: 0px;
+}
+
+.login .form {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.75em;
+}
+
+.form-group label {
+    padding-bottom: 5px;
+}
+
+.form-group input {
+    border-radius: 5px 5px 0px 0px;
+    padding: 7px;
+    border: 0px;
+    border-bottom: 1px solid;
+    font-size: 1em;
+    /* opacity: .2; */
+    background: var(--background-color);
+    -webkit-transition: background .2s;
+    transition: background .2s;
+
+}
+
+.form-group input:hover {
+    background: var(--input-hover);
+}
+
+.form .submit {
+    font-size: 1.2em;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 5px 50px 45px 50px;
+    font-weight: bold;
+    background: var(--nav-color);
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+}
+
+.form .submit:disabled {
+    opacity: .5;
+    
+}
+
+
 
 
 
