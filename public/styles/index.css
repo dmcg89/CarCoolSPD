@@ -236,6 +236,11 @@ body {
     background: var(--input-hover);
 }
 
+.form-group input:focus {
+    background: var(--input-hover);
+}
+
+
 .form .submit {
     font-size: 1.2em;
     margin-top: 20px;
