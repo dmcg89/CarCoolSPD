@@ -13,11 +13,11 @@
         <a href="/sign-up" class="button">Sign Up</a>
         <div class="vl"></div>
         {{/if}}
-        
+
     </form>
 
-    <form class="search">
-        <input class="term" type="search" placeholder="Search" aria-label="Search" for="hidden">
+    <form class="search" action="/search">
+        <input class="term" name="term" type="search" placeholder="Search" aria-label="Search" for="hidden">
         <button class="hidden" type="submit">Search</button>
     </form>
     {{#if currentUser}}
