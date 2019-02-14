@@ -21,7 +21,10 @@ module.exports = function (app) {
   app.get('/search', (req, res) => {
     term = new RegExp(req.query.term, 'i')
 
-    Ride.find( {'route': term} ).exec((err, rides) => {
+    Ride.find(
+      { start: term },
+      { finish: term },
+    ).exec((err, rides) => {
       res.render('rides-index', { rides });
     });
   });
