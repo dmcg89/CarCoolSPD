@@ -183,7 +183,7 @@ body {
 
 .login {
     width: 70%;
-    height: 70vh;
+    min-height: 70vh;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -255,6 +255,10 @@ body {
 .form .submit:disabled {
     opacity: .5;
     
+}
+
+.car-selector {
+    display: flex;
 }
 
 
