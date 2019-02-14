@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 //index
 
-module.exports = function (app, Ride) {
+module.exports = function (app) {
   app.get('/', (req, res) => {
     const currentUser = req.user;
     console.log('this ran');

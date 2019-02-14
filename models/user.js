@@ -3,8 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const Schema = mongoose.Schema;
 
-// Ride unnecessary?
-// const Ride = require('./ride.js');
+// Add car object
 
 const UserSchema = new Schema({
   createdAt: { type: Date },
@@ -12,6 +11,7 @@ const UserSchema = new Schema({
   hasCar: { type: Boolean },
   password: { type: String, select: false },
   username: { type: String, required: true },
+  email: { type: String },
   rides: [{ type: Schema.Types.ObjectId, ref: 'Ride' }],
 });
 
