@@ -3,22 +3,28 @@ const Ride = require('../models/ride');
 const User = require('../models/user');
 
 
-//index
+//  index
 
 module.exports = function (app) {
   app.get('/', (req, res) => {
     const currentUser = req.user;
-    console.log('this ran');
     console.log(currentUser);
     Ride.find()
       .then(rides => {
         res.render('rides-index', { rides: rides, currentUser });
-    })
+      })
       .catch(err => {
         console.log(err);
+      });
+  });
+  // Search
+  app.get('/search', (req, res) => {
+    term = new RegExp(req.query.term, 'i')
+
+    Ride.find( {'route': term} ).exec((err, rides) => {
+      res.render('rides-index', { rides });
     });
   });
-
   // show
 
   app.get('/rides/view/:id', (req, res) => {
