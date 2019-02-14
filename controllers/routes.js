@@ -8,7 +8,6 @@ const User = require('../models/user');
 module.exports = function (app) {
   app.get('/', (req, res) => {
     const currentUser = req.user;
-    console.log(currentUser);
     Ride.find()
       .then(rides => {
         res.render('rides-index', { rides: rides, currentUser });
@@ -32,12 +31,21 @@ module.exports = function (app) {
 
   app.get('/rides/view/:id', (req, res) => {
     const currentUser = req.user;
-        Ride.findById(req.params.id).then((ride) => {
-            res.render('rides-show', { ride: ride, currentUser })
-        }).catch((err) => {
-            console.log(err.message);
-        })
-    });
+    Ride.findById(req.params.id).then((ride) => {
+      let userIsAuthor;
+      if (currentUser) {
+        console.log(currentUser._id);
+        console.log(ride.author._id)
+        userIsAuthor = (currentUser._id == ride.author._id);
+      } else {
+        userIsAuthor = false;
+      }
+      console.log(userIsAuthor);
+      res.render('rides-show', { ride: ride, currentUser, userIsAuthor })
+    }).catch((err) => {
+      console.log(err.message);
+    })
+  });
 
     // delete
 

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-
 const mongoosePaginate = require('mongoose-paginate');
+const Populate = require('../utils/autopopulate');
+
 
 mongoosePaginate.paginate.options = {
   limit: 5, // how many records per page
@@ -18,8 +19,12 @@ const RideSchema = new Schema({
   time: String,
   seats: { type: Number, required: true },
   hasDriver: Boolean,
-  users: [User.schema],
+  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
+
+RideSchema
+  .pre('findOne', Populate('author'))
+  .pre('find', Populate('author'));
 
 module.exports = mongoose.model('Ride', RideSchema);

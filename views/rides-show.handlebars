@@ -7,10 +7,12 @@
   {{/if}}
     <h1>Route: {{ride.start}} to {{ride.finish}}</h1>
     <h2>Time: {{ride.time}}</h2>
+    <h3>Posted by: {{ride.author.username}}
     <p>Seats: {{ride.seats}}</p>
     <p>Description: {{ride.description}}</p>
 </div>
 
+    {{#if userIsAuthor}}
     <p>
         <form method="GET" action="/rides/view/{{ride._id}}/edit">
             <button type="submit" class="btn btn-primary btn-sm">Edit</button>
@@ -23,6 +25,7 @@
             <button type="submit" class="btn btn-primary btn-sm">Delete</button>
         </form>
     </p>
+    {{/if}}
 
 
 
