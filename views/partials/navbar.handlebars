@@ -1,0 +1,26 @@
+<nav class="navbar">
+    <a class="title" href="/"><h1 class="title"><span class="highlight">C</span>ar<span class="highlight">C</span>ool</h1></a>
+    <form class="buttons">
+        <div class="vl"></div>
+        {{#if currentUser}}
+        <a href="/rides/new" class="button">New Ride Post</a>
+        <div class="vl"></div>
+        <a href="/logout" class="button">Log Out</a>
+        <div class="vl"></div>
+        {{else}}
+        <a href="/login" class="button">Log In</a>
+        <div class="vl"></div>
+        <a href="/sign-up" class="button">Sign Up</a>
+        <div class="vl"></div>
+        {{/if}}
+
+    </form>
+
+    <form class="search" action="/search">
+        <input class="term" name="term" type="search" placeholder="Search" aria-label="Search" for="hidden">
+        <button class="hidden" type="submit">Search</button>
+    </form>
+    {{#if currentUser}}
+        <p class="username">{{currentUser.username}} </p>
+    {{/if}}
+</nav>

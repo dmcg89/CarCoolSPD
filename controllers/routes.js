@@ -1,27 +1,37 @@
+const jwt = require('jsonwebtoken');
 const Ride = require('../models/ride');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
 
-//index
 
-module.exports = function(app, Ride) {
-    app.get('/', (req, res) => {
-      var currentUser = req.user;
-      console.log("this ran");
-      console.log(currentUser);
-        Ride.find()
-        .then(rides => {
-            res.render('rides-index', {rides: rides, currentUser});
-        })
-        .catch(err => {
-            console.log(err);
-        });
+//  index
+
+module.exports = function (app) {
+  app.get('/', (req, res) => {
+    const currentUser = req.user;
+    console.log(currentUser);
+    Ride.find()
+      .then(rides => {
+        res.render('rides-index', { rides: rides, currentUser });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+  // Search
+  app.get('/search', (req, res) => {
+    term = new RegExp(req.query.term, 'i')
+
+    Ride.find(
+      { start: term },
+      { finish: term },
+    ).exec((err, rides) => {
+      res.render('rides-index', { rides });
     });
+  });
+  // show
 
-    // show
-
-    app.get('/rides/view/:id', (req, res) => {
-        var currentUser = req.user;
+  app.get('/rides/view/:id', (req, res) => {
+    const currentUser = req.user;
         Ride.findById(req.params.id).then((ride) => {
             res.render('rides-show', { ride: ride, currentUser })
         }).catch((err) => {

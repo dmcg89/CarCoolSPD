@@ -4,8 +4,13 @@
   <legend>Edit Ride Post</legend>
   <!-- TITLE -->
   <p>
-    <label for="ride-route">Route (start/finish)</label><br>
-    <input id="ride-route" type="text" name="route" value="{{ride.route}}"/>
+    <label for="ride-start">Route Start</label><br>
+    <input id="ride-start" type="text" name="start" value="{{ride.start}}"/>
+  </p>
+
+  <p>
+    <label for="ride-finish">Route Finish</label><br>
+    <input id="ride-finish" type="text" name="finish" value="{{ride.finish}}"/>
   </p>
 
   <!--Seats -->
@@ -17,7 +22,7 @@
   <!-- Date/time -->
   <p>
     <label for="ride-time">Date/Time</label><br>
-    <input id="ride-time" type="text" name="time" value="{{ride.time}}" />
+    <input id="ride-time" type="date" name="time" value="{{ride.time}}" />
   </p>
 
   <!-- DESCRIPTION -->
