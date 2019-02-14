@@ -22,4 +22,6 @@ const RideSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
+RideSchema.plugin(mongoosePaginate);
+
 module.exports = mongoose.model('Ride', RideSchema);
