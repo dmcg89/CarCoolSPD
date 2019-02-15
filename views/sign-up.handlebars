@@ -2,11 +2,11 @@
   <h1 class="legend">Sign Up!</h1>
   <form class="form" action="/sign-up" method="POST">
     <div class="form-group">
-      <input for="user-username" type="text" name="username" class="text" id="user-username">
+      <input for="user-username" type="text" name="username" class="text" id="username">
       <label for="user-username">Username</label>
     </div>
     <div class="form-group">
-      <input for="user-password" type="password" name="password" class="form-control" id="user-password">
+      <input for="user-password" type="password" name="password" class="form-control" id="password">
       <label for="user-password">Password</label>
     </div>
     <!-- <div class="form-group">
@@ -16,12 +16,15 @@
     <div class="form-group">
       <label for="hasCar">Do you have a car?</label><br>
       <div class="car-selector">
-        <input id="hasCar" type="radio" name="hasCar" value=1>Yes<br>
-        <input id="hasCar" type="radio" name="hasCar" value=0>No<br>
+        <input id="hasNoCar" type="radio" name="hasCar" value=1>
+        <label  class="car-radio" for="hasNoCar">Yes!</label>
+        <input id="hasCar" type="radio" name="hasCar"  value=0>
+        <label class="car-radio" for='hasCar'>No :(</label>
       </div>
     </div>
     <div class='form-group'>
-      <button type="submit" class="submit">Register</button>
+      <button type="submit" id="button" class="submit" disabled>Go!</button>
     </div>
   </form>
 </div>
+<script src="/js/signup.js"></script>

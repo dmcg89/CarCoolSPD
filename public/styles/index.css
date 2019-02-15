@@ -245,7 +245,7 @@ body {
     font-size: 1.2em;
     margin-top: 20px;
     border-radius: 10px;
-    padding: 5px 50px 45px 50px;
+    padding: 5px 50px 5px 50px;
     font-weight: bold;
     background: var(--nav-color);
     -webkit-transition: opacity .2s;
@@ -259,7 +259,30 @@ body {
 
 .car-selector {
     display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
+
+.car-selector input{
+    display: none;
+}
+
+.car-selector .car-radio {
+    padding: 5px;
+    border-radius: 5px;
+    -webkit-transition: background .2s;
+    transition: background .2s;
+}
+
+.car-selector .car-radio:hover {
+    background: var(--input-hover);
+}
+
+
+.car-selector input:checked + .car-radio {
+    background: var(--nav-color);
+}
+
 
 
 
