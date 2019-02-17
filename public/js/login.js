@@ -4,8 +4,7 @@ const button = document.getElementById('button');
 const checkval = () => {
   if (username.value && password.value) {
     button.disabled = false;
-  }
-  else {
+  } else {
     button.disabled = true;
   }
 };
