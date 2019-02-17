@@ -181,7 +181,7 @@ body {
 
 /* Login / signup */
 
-.login {
+.form-contiainer {
     width: 70%;
     min-height: 70vh;
     margin: auto;
@@ -192,13 +192,12 @@ body {
 
 }
 
-.login .legend {
+.form-container .legend {
     font-size: 3.5em;
     padding: 0px;
-    margin: 0px;
 }
 
-.login .form {
+.form-container .form {
     height: 50%;
     display: flex;
     flex-direction: column;
