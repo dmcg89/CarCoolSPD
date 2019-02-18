@@ -1,39 +1,39 @@
 <!--views/partials/blog-form.handlebars-->
 
-  <!-- TITLE -->
-  <div class='form-group'>
-    <input id="ride-start" type="text" name="start" value="{{ride.start}}"/>
-    <label for="ride-start">Route Start</label><br>
-  </div>
+<!-- TITLE -->
+<div class='form-group'>
+  <input id="ride-start" type="text" name="start" value="{{ride.start}}" />
+  <label for="ride-start">Route Start</label><br>
+</div>
 
-  <div class='form-group'>
-    <input id="ride-finish" type="text" name="finish" value="{{ride.finish}}"/>
-    <label for="ride-finish">Route Finish</label><br>
-  </div>
+<div class='form-group'>
+  <input id="ride-finish" type="text" name="finish" value="{{ride.finish}}" />
+  <label for="ride-finish">Route Finish</label><br>
+</div>
 
-  <!--Seats -->
-  <div class='form-group'>
-    <input id="seats" type="number" name="seats" value="{{ride.seats}}"/>
-    <label for="seats">Number of Seats</label><br>
-  </div>
+<!--Seats -->
+<div class='form-group'>
+  <input id="seats" type="number" name="seats" value="{{ride.seats}}" />
+  <label for="seats">Number of Seats</label><br>
+</div>
 
-  <!-- Date/time -->
-  <div class='form-group'>
-    <input id="ride-time" type="date" name="time" value="{{ride.time}}" />
-    <label for="ride-time">Date/Time</label><br>
-  </div>
+<!-- Date/time -->
+<div class='form-group'>
+  <input id="ride-time" type="date" name="time" value="{{ride.time}}" />
+  <label for="ride-time">Date/Time</label><br>
+</div>
 
-  <!-- DESCRIPTION -->
-  <div  class='form-group'>
-    <textarea id="ride-description" name="description" rows="10" />{{ride.description}}</textarea>
-    <label for="ride-description">Description</label><br>
-  </div>
+<!-- DESCRIPTION -->
+<div class='form-group'>
+  <textarea id="ride-description" name="description" rows="10" />{{ride.description}}</textarea>
+  <label for="ride-description">Description</label><br>
+</div>
 <div class='form-group'>
   <label for="hasDriver">Do you want to drive this route?</label><br>
-  <div>
-  <input id="hasDriver" type="radio" name="hasDriver" value=1>
-  <label>Yes</label>
-  <input id="hasDriver" type="radio" name="hasDriver" value=0>
-  <label>No</label>
+  <div class="car-selector">
+    <input id="has-driver" type="radio" name="hasDriver" value=1 >
+    <label class="car-radio" for="has-driver">Yes</label>
+    <input id="has-no-driver" type="radio" name="hasDriver" value=0>
+    <label class="car-radio" for="has-no-driver">No</label>
   </div>
 </div>

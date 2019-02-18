@@ -16,6 +16,7 @@ body {
     color: var(--text-color);
     background: var(--background-color);
     margin: 0px;
+    margin-top: 60px;
     padding: 0px;
     height: 100%;
     width: 100%;
@@ -43,7 +44,11 @@ body {
 
 /* NavBar */
 .navbar {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 100px);
     background: var(--nav-color);
+    padding-top: 100px;
     padding: 10px 50px;
     display: flex;
     justify-content: space-between;
@@ -195,6 +200,8 @@ body {
 .form-container .legend {
     font-size: 3.5em;
     padding: 0px;
+    text-align: center;
+
 }
 
 .form-container .form {
@@ -203,6 +210,10 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.form-container textarea {
+    width: 25vw;
 }
 
 .form-group {
@@ -240,7 +251,7 @@ body {
 }
 
 
-.form .submit {
+.submit {
     font-size: 1.2em;
     margin-top: 20px;
     border-radius: 10px;
@@ -251,7 +262,7 @@ body {
     transition: opacity .2s;
 }
 
-.form .submit:disabled {
+.submit:disabled {
     opacity: .5;
     
 }
