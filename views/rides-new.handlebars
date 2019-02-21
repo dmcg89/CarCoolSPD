@@ -1,17 +1,15 @@
 <!-- views/rides-new.handlebars -->
+<div class="form-container">
+    <h1 class="legend">Edit Ride Post</h1>
+    <form method="POST" class="form" action="/rides/view/{{ride._id}}">
 
+        {{> rides-form}}
 
-<form method="POST" action="/rides/view/{{ride._id}}">
+        <!-- BUTTON -->
 
-    {{> rides-form}}
+        <div class="form-group">
+            <button type="submit" class="submit">Save Ride</button>
+        </div>
 
-    <!-- BUTTON -->
-
-    <p>
-        <button type="submit" class="btn btn-primary btn-sm">Save Ride</button>
-    </p>
-    <form method="GET" action="/">
-        <button type="cancel" class="btn btn-primary btn-sm">Cancel</button>
     </form>
-
-</form>
+</div>

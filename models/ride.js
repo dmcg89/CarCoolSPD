@@ -24,8 +24,12 @@ const RideSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
+
 RideSchema
   .pre('findOne', Populate('author'))
   .pre('find', Populate('author'));
+
+RideSchema.plugin(mongoosePaginate);
+
 
 module.exports = mongoose.model('Ride', RideSchema);

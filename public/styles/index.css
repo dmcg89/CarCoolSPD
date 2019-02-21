@@ -16,6 +16,7 @@ body {
     color: var(--text-color);
     background: var(--background-color);
     margin: 0px;
+    margin-top: 60px;
     padding: 0px;
     height: 100%;
     width: 100%;
@@ -43,7 +44,11 @@ body {
 
 /* NavBar */
 .navbar {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 100px);
     background: var(--nav-color);
+    padding-top: 100px;
     padding: 10px 50px;
     display: flex;
     justify-content: space-between;
@@ -181,9 +186,9 @@ body {
 
 /* Login / signup */
 
-.login {
+.form-contiainer {
     width: 70%;
-    height: 70vh;
+    min-height: 70vh;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -192,18 +197,23 @@ body {
 
 }
 
-.login .legend {
+.form-container .legend {
     font-size: 3.5em;
     padding: 0px;
-    margin: 0px;
+    text-align: center;
+
 }
 
-.login .form {
+.form-container .form {
     height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.form-container textarea {
+    width: 25vw;
 }
 
 .form-group {
@@ -241,21 +251,48 @@ body {
 }
 
 
-.form .submit {
+.submit {
     font-size: 1.2em;
     margin-top: 20px;
     border-radius: 10px;
-    padding: 5px 50px 45px 50px;
+    padding: 5px 50px 5px 50px;
     font-weight: bold;
     background: var(--nav-color);
     -webkit-transition: opacity .2s;
     transition: opacity .2s;
 }
 
-.form .submit:disabled {
+.submit:disabled {
     opacity: .5;
     
 }
+
+.car-selector {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.car-selector input{
+    display: none;
+}
+
+.car-selector .car-radio {
+    padding: 5px;
+    border-radius: 5px;
+    -webkit-transition: background .2s;
+    transition: background .2s;
+}
+
+.car-selector .car-radio:hover {
+    background: var(--input-hover);
+}
+
+
+.car-selector input:checked + .car-radio {
+    background: var(--nav-color);
+}
+
 
 
 

@@ -1,17 +1,15 @@
 <!--views/partials/blog-form.handlebars-->
 
-<fieldset class="container">
-  <legend>Edit Ride Post</legend>
-  <!-- TITLE -->
-  <p>
-    <label for="ride-start">Route Start</label><br>
-    <input id="ride-start" type="text" name="start" value="{{ride.start}}"/>
-  </p>
+<!-- TITLE -->
+<div class='form-group'>
+  <input id="ride-start" type="text" name="start" value="{{ride.start}}" />
+  <label for="ride-start">Route Start</label><br>
+</div>
 
-  <p>
-    <label for="ride-finish">Route Finish</label><br>
-    <input id="ride-finish" type="text" name="finish" value="{{ride.finish}}"/>
-  </p>
+<div class='form-group'>
+  <input id="ride-finish" type="text" name="finish" value="{{ride.finish}}" />
+  <label for="ride-finish">Route Finish</label><br>
+</div>
 
   <!-- Date/time -->
   <p>
