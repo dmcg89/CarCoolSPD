@@ -6,7 +6,7 @@ const User = require('../models/user');
 //  index
 
 module.exports = function (app) {
-  app.get('/', (req, res) => {
+  app.get('/rides', (req, res) => {
     const currentUser = req.user;
     Ride.find()
       .then(rides => {
@@ -16,6 +16,16 @@ module.exports = function (app) {
         console.log(err);
       });
   });
+
+  app.get('/users/:id', (req, res) => {
+    const currentUser = req.user;
+    User.findById(req.params.id).then((user) => {
+      res.render('user-show', { currentUser, user });
+    }).catch((err) => {
+      console.log(err.message);
+    });
+  });
+
   // Search
   app.get('/search', (req, res) => {
     term = new RegExp(req.query.term, 'i')
@@ -33,9 +43,12 @@ module.exports = function (app) {
     const currentUser = req.user;
     Ride.findById(req.params.id).then((ride) => {
       let userIsAuthor;
+      let userInRide;
       if (currentUser) {
         console.log(currentUser._id);
-        console.log(ride.author._id)
+        console.log(ride.author._id);
+        console.log(ride.users);
+
         userIsAuthor = (currentUser._id == ride.author._id);
       } else {
         userIsAuthor = false;
@@ -49,21 +62,36 @@ module.exports = function (app) {
 
     // delete
 
-    app.delete('/rides/view/:id', function (req, res) {
-        console.log("Delete Ride");
-        Ride.findByIdAndRemove(req.params.id).then((ride) => {
-            res.redirect('/');
+  app.delete('/rides/view/:id', function (req, res) {
+    console.log("Delete Ride");
+     Ride.findByIdAndRemove(req.params.id).then((ride) => {
+      res.redirect('/');
         }).catch((err) => {
-            console.log(err.message);
+          console.log(err.message);
         })
-    })
-    // edit page
-    app.get('/rides/view/:id/edit', (req, res) => {
-        var currentUser = req.user;
-        Ride.findById(req.params.id, function(err, ride) {
-            res.render('rides-edit', { ride: ride, currentUser });
-        })
-    })
+  })
+
+  // edit page
+  app.get('/rides/view/:id/edit', (req, res) => {
+    var currentUser = req.user;
+    if (currentUser) {
+      Ride.findById(req.params.id, function(err, ride) {
+        let userIsAuthor;
+        console.log(currentUser._id);
+        console.log(ride.author._id)
+        userIsAuthor = (currentUser._id == ride.author._id);
+        if (userIsAuthor) {
+          res.render('rides-edit', { ride: ride, currentUser });
+        } else {
+          console.log('failed authentication on edit! Wrong user');
+          return res.status(401); // UNAUTHORIZED
+        }
+      });
+    } else {
+      console.log('failed authentication on edit! Not logged in');
+      return res.status(401); // UNAUTHORIZED
+    }
+  });
 
 
     // app.post('/rides/view', (req, res) => {
@@ -115,16 +143,20 @@ module.exports = function (app) {
         })
     })
 
-    app.get('/rides', (req, res) => {
+    app.get('/', (req, res) => {
         var currentUser = req.user;
-        res.render('rides-index', {currentUser})
+        res.render('home', {currentUser})
     })
 
 
-    app.get('/rides/new', (req, res) => {
-        var currentUser = req.user;
-        res.render('rides-new', {currentUser});
-    })
+  app.get('/rides/new', (req, res) => {
+    const currentUser = req.user;
+    if(currentUser) {
+      res.render('rides-new', {currentUser});
+    } else {
+      res.redirect('/login')
+    }
+  });
 
     // SIGN UP FORM
     app.get('/sign-up', (req, res) => {

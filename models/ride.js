@@ -19,6 +19,7 @@ const RideSchema = new Schema({
   time: String,
   seats: { type: Number, required: true },
   hasDriver: Boolean,
+  driver: { type: Schema.Types.ObjectId, ref: 'User' },
   users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
