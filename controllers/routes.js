@@ -151,10 +151,10 @@ module.exports = function (app) {
 
   app.get('/rides/new', (req, res) => {
     const currentUser = req.user;
-    if(currentUser) {
-      res.render('rides-new', {currentUser});
+    if (currentUser) {
+      res.render('rides-new', { currentUser });
     } else {
-      res.redirect('/login')
+      res.redirect('/login');
     }
   });
 
@@ -174,15 +174,15 @@ module.exports = function (app) {
         res.redirect('/');
     });
 
-    // SIGN UP POST
+  // SIGN UP POST
       app.post('/sign-up', (req, res) => {
         // Create User and JWT
         const user = new User(req.body);
 
         user.save().then((user) => {
-          var token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, { expiresIn: "60 days" });
+          var token = jwt.sign({ _id: user._id, username: user.username, hasCar: user.hasCar }, process.env.SECRET, { expiresIn: "60 days" });
           res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
-          res.redirect('/');
+          res.redirect('rides');
         }).catch((err) => {
           console.log(err.message);
           return res.status(400).send({ err: err });
