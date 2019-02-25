@@ -197,7 +197,7 @@ module.exports = function (app) {
         console.log(username);
         console.log(password);
         // Find this user name
-        User.findOne({ username }, "username password")
+        User.findOne({ username }, "username password hasCar")
             .then(user => {
                 if (!user) {
                     // User not found
