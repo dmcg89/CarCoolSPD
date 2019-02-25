@@ -28,12 +28,16 @@ module.exports = function (app) {
 
   // Search
   app.get('/search', (req, res) => {
-    term = new RegExp(req.query.term, 'i')
+    const term = new RegExp(req.query.term, 'i');
 
-    Ride.find(
-      { start: term },
-      { finish: term },
-    ).exec((err, rides) => {
+    Ride.find({
+      $or: [
+        { start: term },
+        { finish: term },
+      ],
+
+
+    }).exec((err, rides) => {
       res.render('rides-index', { rides });
     });
   });
