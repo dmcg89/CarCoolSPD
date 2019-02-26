@@ -36,8 +36,8 @@ module.exports = function (app) {
         ride.save();
         res.redirect(`/rides/view/${ride._id}`);
       } else {
-        console.log('failed authentication on edit! Wrong user');
-        return res.status(401);
+        console.log('user not logged in');
+        res.redirect('/login');
       }
     }).catch((err) => {
       console.log(err.message);

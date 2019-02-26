@@ -28,11 +28,14 @@
         </form>
     </p>
     {{else}}
+    {{#if seatsLeft }}
+
     <p>
         <form method="POST" action="/rides/view/{{ride._id}}/adduser">
             <button type="submit" class="btn btn-primary btn-sm">Claim your seat</button>
         </form>
     </p>
+    {{/if}}
     {{/if}}
 
     <footer class="ride-footer">
