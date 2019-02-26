@@ -12,27 +12,27 @@
 </div>
 
   <!-- Date/time -->
-  <p>
-    <label for="ride-time">Date/Time</label><br>
+  <div class="form-group">
     <input id="ride-time" type="date" name="time" value="{{ride.time}}" />
-  </p>
+    <label for="ride-time">Date/Time</label><br>
+  </div>
 
   <!-- DESCRIPTION -->
-  <p>
-    <label for="ride-description">Description</label><br>
+  <div class="form-group">
     <textarea id="ride-description" name="description" rows="10" />{{ride.description}}</textarea>
-  </p>
+    <label for="ride-description">Description</label><br>
+  </div>
   {{#if currentUser.hasCar}}
   <!--Seats -->
-  <p>
-    <label for="seats">Number of Seats</label><br>
+  <div class="form-group">
     <input id="seats" type="number" name="seats" value="{{ride.seats}}"/>
-  </p>
+    <label for="seats">Number of Seats</label><br>
+  </div>
 
-  <p>
+  <div class="form-group">
     <label for="hasDriver">Do you want to drive this route?</label><br>
     <input id="hasDriver" type="radio" name="hasDriver" value=1>Yes<br>
     <input id="hasDriver" type="radio" name="hasDriver" value=0>No<br>
-  </p>
+  </div>
   {{/if}}
 </fieldset>
