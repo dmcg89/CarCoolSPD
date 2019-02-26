@@ -45,6 +45,7 @@ module.exports = function (app) {
 
   app.get('/rides/view/:id', (req, res) => {
     const currentUser = req.user;
+    console.log(currentUser);
     Ride.findById(req.params.id).then((ride) => {
       let userIsAuthor;
       let userInRide;
@@ -216,7 +217,7 @@ module.exports = function (app) {
 
                     // Create a token
                     console.log(user)
-                    const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
+                    const token = jwt.sign({ _id: user._id, username: user.username, hasCar: user.hasCar }, process.env.SECRET, {
                         expiresIn: "60 days"
                     });
                     // Set a cookie and redirect to root
