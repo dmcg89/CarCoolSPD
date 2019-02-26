@@ -26,6 +26,24 @@ module.exports = function (app) {
     });
   });
 
+  //  add rider to ride
+  app.post('/rides/view/:id/adduser', (req, res) => {
+    const currentUser = req.user;
+    console.log(req.body);
+    Ride.findById(req.params.id).then((ride) => {
+      if (currentUser) {
+        ride.users.push(currentUser);
+        ride.save();
+        res.redirect(`/rides/view/${ride._id}`);
+      } else {
+        console.log('failed authentication on edit! Wrong user');
+        return res.status(401);
+      }
+    }).catch((err) => {
+      console.log(err.message);
+    });
+  });
+
   // Search
   app.get('/search', (req, res) => {
     const term = new RegExp(req.query.term, 'i');
@@ -59,7 +77,9 @@ module.exports = function (app) {
         userIsAuthor = false;
       }
       console.log(userIsAuthor);
-      res.render('rides-show', { ride: ride, currentUser, userIsAuthor })
+      const seatsLeft = ride.seats - ride.users.length;
+      console.log(seatsLeft);
+      res.render('rides-show', { ride, currentUser, userIsAuthor, seatsLeft })
     }).catch((err) => {
       console.log(err.message);
     })

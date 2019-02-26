@@ -9,7 +9,7 @@
     <h2>Time: {{ride.time}}</h2>
     <h3>Posted by: {{ride.author.username}}
   {{#if ride.hasDriver}}
-    <p>Seats: {{ride.seats}}</p>
+    <p>Seats Left: {{seatsLeft}} / {{ride.seats}}</p>
   {{/if}}
     <p>Description: {{ride.description}}</p>
 </div>
@@ -25,6 +25,12 @@
     <p>
         <form method="POST" action="/rides/view/{{ride._id}}?_method=DELETE">
             <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+        </form>
+    </p>
+    {{else}}
+    <p>
+        <form method="POST" action="/rides/view/{{ride._id}}/adduser">
+            <button type="submit" class="btn btn-primary btn-sm">Claim your seat</button>
         </form>
     </p>
     {{/if}}
