@@ -26,6 +26,24 @@ module.exports = function (app) {
     });
   });
 
+  //  add rider to ride
+  app.post('/rides/view/:id/adduser', (req, res) => {
+    const currentUser = req.user;
+    console.log(req.body);
+    Ride.findById(req.params.id).then((ride) => {
+      if (currentUser) {
+        ride.users.push(currentUser);
+        ride.save();
+        res.redirect(`/rides/view/${ride._id}`);
+      } else {
+        console.log('user not logged in');
+        res.redirect('/login');
+      }
+    }).catch((err) => {
+      console.log(err.message);
+    });
+  });
+
   // Search
   app.get('/search', (req, res) => {
     const term = new RegExp(req.query.term, 'i');
@@ -45,9 +63,9 @@ module.exports = function (app) {
 
   app.get('/rides/view/:id', (req, res) => {
     const currentUser = req.user;
+    console.log(currentUser);
     Ride.findById(req.params.id).then((ride) => {
       let userIsAuthor;
-      let userInRide;
       if (currentUser) {
         console.log(currentUser._id);
         console.log(ride.author._id);
@@ -58,10 +76,17 @@ module.exports = function (app) {
         userIsAuthor = false;
       }
       console.log(userIsAuthor);
-      res.render('rides-show', { ride: ride, currentUser, userIsAuthor })
+      const seatsLeft = ride.seats - ride.users.length;
+      User.find({
+        _id: ride.users
+      }).then (riders => {
+        console.log(riders)
+        res.render('rides-show', { ride, currentUser, userIsAuthor, seatsLeft, riders })
+      });
+      console.log(seatsLeft);
     }).catch((err) => {
       console.log(err.message);
-    })
+    });
   });
 
     // delete
@@ -69,7 +94,7 @@ module.exports = function (app) {
   app.delete('/rides/view/:id', function (req, res) {
     console.log("Delete Ride");
      Ride.findByIdAndRemove(req.params.id).then((ride) => {
-      res.redirect('/');
+      res.redirect('/rides');
         }).catch((err) => {
           console.log(err.message);
         })
@@ -186,7 +211,7 @@ module.exports = function (app) {
         user.save().then((user) => {
           var token = jwt.sign({ _id: user._id, username: user.username, hasCar: user.hasCar }, process.env.SECRET, { expiresIn: "60 days" });
           res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
-          res.redirect('rides');
+          res.redirect('/rides');
         }).catch((err) => {
           console.log(err.message);
           return res.status(400).send({ err: err });
@@ -216,12 +241,12 @@ module.exports = function (app) {
 
                     // Create a token
                     console.log(user)
-                    const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
+                    const token = jwt.sign({ _id: user._id, username: user.username, hasCar: user.hasCar }, process.env.SECRET, {
                         expiresIn: "60 days"
                     });
                     // Set a cookie and redirect to root
                     res.cookie("nToken", token, { maxAge: 900000, httpOnly: true });
-                    res.redirect("/");
+                    res.redirect('/rides');
                 });
             })
             .catch(err => {
