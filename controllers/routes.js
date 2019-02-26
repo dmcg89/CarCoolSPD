@@ -86,7 +86,7 @@ module.exports = function (app) {
       console.log(seatsLeft);
     }).catch((err) => {
       console.log(err.message);
-    })
+    });
   });
 
     // delete

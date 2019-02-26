@@ -14,7 +14,14 @@
     <p>Description: {{ride.description}}</p>
     <ul>
         {{#each riders}}
-          <li><a href = "/users/{{this._id}}">{{this.username}}</a></li>
+
+          <li><a href = "/users/{{this._id}}">{{this.username}}</a>
+              {{#if userIsAuthor}}
+              <form method="DELETE" action="/rides/view/{{ride._id}}/adduser">
+                  <button type="submit" class="btn btn-primary btn-sm">Remove from Ride</button>
+              </form>
+              {{/if}}
+          </li>
 
         {{/each}}
     </ul>
