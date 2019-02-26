@@ -16,6 +16,7 @@
         {{#each riders}}
 
           <li><a href = "/users/{{this._id}}">{{this.username}}</a>
+              <p>{{userIsAuthor}}</p>
               {{#if userIsAuthor}}
               <form method="DELETE" action="/rides/view/{{ride._id}}/adduser">
                   <button type="submit" class="btn btn-primary btn-sm">Remove from Ride</button>
