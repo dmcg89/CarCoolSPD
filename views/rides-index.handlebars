@@ -16,7 +16,7 @@
     <div class="rides">
         {{#each rides}}
         <a href="/rides/view/{{this._id}}" class="link"><div class='ride'>
-            <h1 class="display-4">{{this.route}}</h1>
+            <h1 class="display-4">{{this.start}} To {{this.finish}}</h1>
             <h3 class="time">{{this.time}}</h3>
             <h3 class="desc">{{this.description}}</h3>
             {{#if this.hasDriver}}
