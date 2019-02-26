@@ -66,7 +66,6 @@ module.exports = function (app) {
     console.log(currentUser);
     Ride.findById(req.params.id).then((ride) => {
       let userIsAuthor;
-      let userInRide;
       if (currentUser) {
         console.log(currentUser._id);
         console.log(ride.author._id);
@@ -78,8 +77,13 @@ module.exports = function (app) {
       }
       console.log(userIsAuthor);
       const seatsLeft = ride.seats - ride.users.length;
+      User.find({
+        _id: ride.users
+      }).then (riders => {
+        console.log(riders)
+        res.render('rides-show', { ride, currentUser, userIsAuthor, seatsLeft, riders })
+      });
       console.log(seatsLeft);
-      res.render('rides-show', { ride, currentUser, userIsAuthor, seatsLeft })
     }).catch((err) => {
       console.log(err.message);
     })

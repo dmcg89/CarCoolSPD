@@ -12,6 +12,12 @@
     <p>Seats Left: {{seatsLeft}} / {{ride.seats}}</p>
   {{/if}}
     <p>Description: {{ride.description}}</p>
+    <ul>
+        {{#each riders}}
+          <li><a href = "/users/{{this._id}}">{{this.username}}</a></li>
+
+        {{/each}}
+    </ul>
 </div>
 
     {{#if userIsAuthor}}
