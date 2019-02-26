@@ -24,9 +24,6 @@ body {
 
 }
 
-* {
-}
-
 
 .splash {
     margin: 30px 30px 0px 30px;
@@ -293,6 +290,15 @@ body {
     background: var(--nav-color);
 }
 
+
+/* User show */
+
+
+.user {
+    margin: 20px;
+}
+
+/* .user img */
 
 
 
