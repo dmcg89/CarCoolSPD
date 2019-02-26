@@ -14,10 +14,10 @@
     <p>Description: {{ride.description}}</p>
     <ul>
         {{#each riders}}
-
           <li><a href = "/users/{{this._id}}">{{this.username}}</a>
-              {{#if userIsAuthor}}
-              <form method="DELETE" action="/rides/view/{{ride._id}}/adduser">
+
+              {{#if ../userIsAuthor}}
+              <form method="POST" action="/rides/view/{{../ride._id}}/adduser?_method=DELETE">
                   <button type="submit" class="btn btn-primary btn-sm">Remove from Ride</button>
               </form>
               {{/if}}
