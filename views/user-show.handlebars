@@ -7,4 +7,9 @@
 {{else}}
 <p>Doesn't have a car</p>
 {{/if}}
+<ul>
+  {{#each user.rides}}
+  <li>{{this.start}}</li>
+  {{/each}}
+</ul>
 </div>
