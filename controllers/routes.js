@@ -52,10 +52,11 @@ module.exports = function (app) {
       console.log('here');
       console.log(currentUser._id);
       console.log(ride.author._id);
-      if (currentUser._id == ride.author._id) {
+      if (currentUser._id == ride.author._id || currentUser._id == req.params.userid) {
         const index = ride.users.indexOf(req.params.userid);
         ride.users.splice(index, 1);
         ride.save();
+        res.redirect(`/rides/view/${ride._id}`);
       } else {
         console.log('user is not author');
         res.redirect('/rides');
@@ -84,6 +85,7 @@ module.exports = function (app) {
 
   app.get('/rides/view/:id', (req, res) => {
     const currentUser = req.user;
+    let userNotInRide = false;
     console.log(currentUser);
     Ride.findById(req.params.id).then((ride) => {
       let userIsAuthor;
@@ -93,6 +95,10 @@ module.exports = function (app) {
         console.log(ride.users);
 
         userIsAuthor = (currentUser._id == ride.author._id);
+        let index = ride.users.indexOf(currentUser._id);
+        userNotInRide = (index < 0);
+        console.log(userNotInRide)
+        console.log(index);
       } else {
         userIsAuthor = false;
       }
@@ -102,7 +108,7 @@ module.exports = function (app) {
         _id: ride.users
       }).then (riders => {
         console.log(riders)
-        res.render('rides-show', { ride, currentUser, userIsAuthor, seatsLeft, riders })
+        res.render('rides-show', { ride, currentUser, userIsAuthor, seatsLeft, riders, userNotInRide })
       });
       console.log(seatsLeft);
     }).catch((err) => {

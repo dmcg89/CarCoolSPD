@@ -41,14 +41,21 @@
         </form>
     </p>
     {{else}}
-    {{#if seatsLeft }}
+        {{#if userNotInRide}}
+            {{#if seatsLeft }}
 
-    <p>
-        <form method="POST" action="/rides/view/{{ride._id}}/adduser">
-            <button type="submit" class="btn btn-primary btn-sm">Claim your seat</button>
-        </form>
-    </p>
-    {{/if}}
+            <p>
+                <form method="POST" action="/rides/view/{{ride._id}}/adduser">
+                    <button type="submit" class="btn btn-primary btn-sm">Claim your seat</button>
+                </form>
+            </p>
+
+            {{/if}}
+        {{else}}
+            <form method="POST" action="/rides/view/{{ride._id}}/adduser/{{currentUser._id}}?_method=DELETE">
+                <button type="submit" class="btn btn-primary btn-sm">Remove myself from Ride</button>
+            </form>
+        {{/if}}
     {{/if}}
 
     <footer class="ride-footer">
