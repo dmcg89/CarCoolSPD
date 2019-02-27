@@ -10,7 +10,7 @@ module.exports = function (app) {
     const currentUser = req.user;
     Ride.find()
       .then(rides => {
-        res.render('rides-index', { rides: rides, currentUser });
+        res.render('rides-index', { rides, currentUser });
       })
       .catch(err => {
         console.log(err);
@@ -38,6 +38,27 @@ module.exports = function (app) {
       } else {
         console.log('user not logged in');
         res.redirect('/login');
+      }
+    }).catch((err) => {
+      console.log(err.message);
+    });
+  });
+
+  // delete user/rider from ride
+  app.delete('/rides/view/:id/adduser/:userid', (req, res) => {
+    const currentUser = req.user;
+    console.log(req.body);
+    Ride.findById(req.params.id).then((ride) => {
+      console.log('here');
+      console.log(currentUser._id);
+      console.log(ride.author._id);
+      if (currentUser._id == ride.author._id) {
+        const index = ride.users.indexOf(req.params.userid);
+        ride.users.splice(index, 1);
+        ride.save();
+      } else {
+        console.log('user is not author');
+        res.redirect('/rides');
       }
     }).catch((err) => {
       console.log(err.message);
