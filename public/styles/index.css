@@ -298,7 +298,28 @@ body {
     margin: 20px;
 }
 
-/* .user img */
+
+
+/* Ride show */
+
+.show {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.show ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.show h1{
+    
+}
 
 
 

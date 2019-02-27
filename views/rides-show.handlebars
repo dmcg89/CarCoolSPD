@@ -1,30 +1,32 @@
 <!-- views/rides-show.handlebars -->
-<div class="nice-buttons">
-  {{#if ride.hasDriver}}
-    <h1>Ride Offered</h1>
-  {{else}}
-    <h1>Ride Wanted</h1>
-  {{/if}}
-    <h1>Route: {{ride.start}} to {{ride.finish}}</h1>
-    <h2>Time: {{ride.time}}</h2>
-    <h3>Posted by: {{ride.author.username}}
-  {{#if ride.hasDriver}}
-    <p>Seats Left: {{seatsLeft}} / {{ride.seats}}</p>
-  {{/if}}
-    <p>Description: {{ride.description}}</p>
-    <ul>
-        {{#each riders}}
-          <li><a href = "/users/{{this._id}}">{{this.username}}</a>
-              {{#if ../userIsAuthor}}
-              <form method="POST" action="/rides/view/{{../ride._id}}/adduser/{{this._id}}?_method=DELETE">
-                  <button type="submit" class="btn btn-primary btn-sm">Remove from Ride</button>
-              </form>
-              {{/if}}
-          </li>
+<div class="show">
+    <div class="nice-buttons">
+        {{#if ride.hasDriver}}
+        <h1>Ride Offered</h1>
+        {{else}}
+        <h1>Ride Wanted</h1>
+        {{/if}}
+        <h1>Leaving from: {{ride.start}}</h1>
+        <h1>Going to: {{ride.finish}}</h1>
+        <h2>When: {{ride.time}}</h2>
+        <h3>Posted by: {{ride.author.username}}
+            {{#if ride.hasDriver}}
+            <p>Seats Left: {{seatsLeft}} / {{ride.seats}}</p>
+            {{/if}}
+            <p>Description: {{ride.description}}</p>
+            <ul>
+                {{#each riders}}
+                <li><a href="/users/{{this._id}}">{{this.username}}</a>
+                    {{#if ../userIsAuthor}}
+                    <form method="POST" action="/rides/view/{{../ride._id}}/adduser/{{this._id}}?_method=DELETE">
+                        <button type="submit" class="btn btn-primary btn-sm">Remove from Ride</button>
+                    </form>
+                    {{/if}}
+                </li>
 
-        {{/each}}
-    </ul>
-</div>
+                {{/each}}
+            </ul>
+    </div>
 
     {{#if userIsAuthor}}
     <p>
@@ -36,7 +38,7 @@
     <!--Delete Button-->
     <p>
         <form method="POST" action="/rides/view/{{ride._id}}?_method=DELETE">
-            <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+            <button type="submit" class="submit">Delete</button>
         </form>
     </p>
     {{else}}
@@ -44,7 +46,7 @@
 
     <p>
         <form method="POST" action="/rides/view/{{ride._id}}/adduser">
-            <button type="submit" class="btn btn-primary btn-sm">Claim your seat</button>
+            <button type="submit" class="submit">Claim your seat</button>
         </form>
     </p>
     {{/if}}
@@ -56,10 +58,4 @@
     </footer>
 
 
-<style>
-    .nice-buttons {
-        margin: auto;
-        width: 50%;
-        padding: 10px;
-    }
-</style>
+</div>
