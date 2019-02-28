@@ -18,13 +18,21 @@ module.exports = function (app) {
   // });
   app.get('/rides', (req, res) => {
     const currentUser = req.user;
-    const page = req.query.page || 1;
-    Ride.paginate({}, { limit: 5, page }).then((results) => {
-      res.render('pets-index',
+    const currentPage = req.query.page || 1;
+    Ride.paginate({}, { limit: 5, currentPage }).then((results) => {
+      const pageNumbers = [];
+      for (let i = 1; i <= results.pages; i += 1) {
+        pageNumbers.push(i);
+      }
+      console.log(results.docs);
+      console.log('here');
+      console.log(results.pages);
+      res.render('rides-index',
         {
-          pets: results.docs,
+          rides: results.docs,
           pagesCount: results.pages,
-          currentPage: page,
+          currentPage,
+          currentUser,
         });
     });
   });
