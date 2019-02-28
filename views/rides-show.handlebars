@@ -1,72 +1,69 @@
 <!-- views/rides-show.handlebars -->
-<div class="nice-buttons">
-  {{#if ride.hasDriver}}
-    <h1>Ride Offered</h1>
-  {{else}}
-    <h1>Ride Wanted</h1>
-  {{/if}}
-    <h1>Route: {{ride.start}} to {{ride.finish}}</h1>
-    <h2>Time: {{ride.time}}</h2>
-    <h3>Posted by: {{ride.author.username}}
-  {{#if ride.hasDriver}}
-    <p>Seats Left: {{seatsLeft}} / {{ride.seats}}</p>
-  {{/if}}
-    <p>Description: {{ride.description}}</p>
-    <ul>
-        {{#each riders}}
-          <li><a href = "/users/{{this._id}}">{{this.username}}</a>
-              {{#if ../userIsAuthor}}
-              <form method="POST" action="/rides/view/{{../ride._id}}/adduser/{{this._id}}?_method=DELETE">
-                  <button type="submit" class="btn btn-primary btn-sm">Remove from Ride</button>
-              </form>
-              {{/if}}
-          </li>
+<div class="show">
+    <div class="nice-buttons">
+        <h3>Take a Trip</h3>
+        <h1><span class="down">From</span> <i>{{ride.start}}</i> <span class="down">To</span> <i>{{ride.finish}}</i></h1>
+        <hr>
+        <h2>{{ride.time}}</h2>
+        {{> driver-state}}
+        {{#if ride.hasDriver}}
+        <p>Seats Left: {{seatsLeft}} / {{ride.seats}}</p>
+        {{/if}}
+        {{#if riders}}
+        <p>Current Riders:</p>
+        {{/if}}
+        <ul class="riders">
+            {{#each riders}}
+            <li><a class="userlink" href="/users/{{this._id}}">{{this.username}}</a>
+                {{#if ../userIsAuthor}}
+                <div class="vl"></div>
+                <form method="POST" action="/rides/view/{{../ride._id}}/adduser/{{this._id}}?_method=DELETE">
+                    <button type="submit" class="inline-button">Remove</button>
+                </form>
+                {{/if}}
+            </li>
 
-        {{/each}}
-    </ul>
-</div>
+            {{/each}}
+        </ul>
+        <hr>
+        
+        <p>Description: {{ride.description}}</p>
+        <h3>Posted by: <a class="userlink" href="/users/{{ride.author._id}}">{{ride.author.username}}</a></h3>
+
+    </div>
 
     {{#if userIsAuthor}}
     <p>
         <form method="GET" action="/rides/view/{{ride._id}}/edit">
-            <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+            <button type="submit" class="submit">Edit</button>
         </form>
     </p>
 
     <!--Delete Button-->
     <p>
         <form method="POST" action="/rides/view/{{ride._id}}?_method=DELETE">
-            <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+            <button type="submit" class="submit">Delete</button>
         </form>
     </p>
     {{else}}
-        {{#if userNotInRide}}
-            {{#if seatsLeft }}
+    {{#if userNotInRide}}
+    {{#if seatsLeft }}
 
-            <p>
-                <form method="POST" action="/rides/view/{{ride._id}}/adduser">
-                    <button type="submit" class="btn btn-primary btn-sm">Claim your seat</button>
-                </form>
-            </p>
+    <p>
+        <form method="POST" action="/rides/view/{{ride._id}}/adduser">
+            <button type="submit" class="submit">Claim your seat</button>
+        </form>
+    </p>
 
-            {{/if}}
-        {{else}}
-            <form method="POST" action="/rides/view/{{ride._id}}/adduser/{{currentUser._id}}?_method=DELETE">
-                <button type="submit" class="btn btn-primary btn-sm">Remove myself from Ride</button>
-            </form>
-        {{/if}}
+    {{/if}}
+    {{else}}
+    <form method="POST" action="/rides/view/{{ride._id}}/adduser/{{currentUser._id}}?_method=DELETE">
+        <button type="submit" class="submit">Cancel Ride</button>
+    </form>
+    {{/if}}
     {{/if}}
 
-    <footer class="ride-footer">
-
-        <a href="/rides">Back to rides</a>
-    </footer>
 
 
-<style>
-    .nice-buttons {
-        margin: auto;
-        width: 50%;
-        padding: 10px;
-    }
-</style>
+
+</div>
