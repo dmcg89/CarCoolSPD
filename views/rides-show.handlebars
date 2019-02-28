@@ -26,7 +26,7 @@
             {{/each}}
         </ul>
         <hr>
-        
+
         <p>Description: {{ride.description}}</p>
         <h3>Posted by: <a class="userlink" href="/users/{{ride.author._id}}">{{ride.author.username}}</a></h3>
 
@@ -46,21 +46,22 @@
         </form>
     </p>
     {{else}}
-    {{#if userNotInRide}}
-    {{#if seatsLeft }}
 
-    <p>
-        <form method="POST" action="/rides/view/{{ride._id}}/adduser">
-            <button type="submit" class="submit">Claim your seat</button>
-        </form>
-    </p>
-
-    {{/if}}
-    {{else}}
-    <form method="POST" action="/rides/view/{{ride._id}}/adduser/{{currentUser._id}}?_method=DELETE">
-        <button type="submit" class="submit">Cancel Ride</button>
-    </form>
-    {{/if}}
+      {{#if currentUser}}
+        {{#if userNotInRide}}
+          {{#if seatsLeft }}
+            <p>
+              <form method="POST" action="/rides/view/{{ride._id}}/adduser">
+                <button type="submit" class="submit">Claim your seat</button>
+              </form>
+            </p>
+          {{/if}}
+        {{else}}
+          <form method="POST" action="/rides/view/{{ride._id}}/adduser/{{currentUser._id}}?_method=DELETE">
+            <button type="submit" class="submit">Cancel Ride</button>
+          </form>
+        {{/if}}
+      {{/if}}
     {{/if}}
 
 
