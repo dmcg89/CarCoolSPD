@@ -59,7 +59,7 @@ body {
     text-decoration: none;
     padding: 0;
     margin: 0;
-    
+
 }
 
 .vl {
@@ -136,7 +136,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .rides .link {
@@ -261,7 +261,7 @@ body {
 
 .submit:disabled {
     opacity: .5;
-    
+
 }
 
 .car-selector {
@@ -270,7 +270,7 @@ body {
     justify-content: space-around;
 }
 
-.car-selector input{
+.car-selector input {
     display: none;
 }
 
@@ -286,7 +286,7 @@ body {
 }
 
 
-.car-selector input:checked + .car-radio {
+.car-selector input:checked+.car-radio {
     background: var(--nav-color);
 }
 
@@ -312,16 +312,46 @@ body {
     font-size: 1.3em;
 }
 
-.show ul {
+.riders {
     list-style: none;
     padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.show h1{
-    
+.riders li {
+    max-width: 100px;
+    margin: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
+.inline-button {
+    font-size: .7em;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+    background: var(--nav-color);
+}
 
+.down {
+    font-size: .7em;
+}
 
+.userlink {
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-style: italic;
+    -webkit-transition: background .2s;
+    transition: background .2s;
 
+}
 
+.userlink:hover {
+    background: var(--input-hover);
+}
