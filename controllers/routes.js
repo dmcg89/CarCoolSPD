@@ -12,7 +12,7 @@ module.exports = function (app) {
       .then(rides => {
         res.render('rides-index', {
           rides,
-          currentUser
+          currentUser,
         });
       })
       .catch(err => {
@@ -25,7 +25,7 @@ module.exports = function (app) {
     User.findById(req.params.id).then((user) => {
       res.render('user-show', {
         currentUser,
-        user
+        user,
       });
     }).catch((err) => {
       console.log(err.message);
@@ -64,7 +64,7 @@ module.exports = function (app) {
         ride.save()
           .then(ride => {
             res.redirect(`/rides/view/${ride._id}`);
-        });
+          });
       } else {
         console.log('user is not author');
         res.redirect('/rides');
@@ -80,20 +80,19 @@ module.exports = function (app) {
 
     Ride.find({
       $or: [{
-          start: term
-        },
-        {
-          finish: term
-        },
+        start: term,
+      },
+      {
+        finish: term,
+      },
       ],
-
-
     }).exec((err, rides) => {
       res.render('rides-index', {
-        rides
+        rides,
       });
     });
   });
+
   // show
 
   app.get('/rides/view/:id', (req, res) => {
