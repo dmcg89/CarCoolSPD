@@ -6,19 +6,37 @@ const User = require('../models/user');
 //  index
 
 module.exports = function (app) {
+  // app.get('/rides', (req, res) => {
+  //   const currentUser = req.user;
+  //   Ride.find()
+  //     .then(rides => {
+  //       res.render('rides-index', { rides: rides, currentUser });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // });
   app.get('/rides', (req, res) => {
     const currentUser = req.user;
-    Ride.find()
-      .then(rides => {
-        res.render('rides-index', {
-          rides,
+    const currentPage = req.query.page || 1;
+    Ride.paginate({}, { limit: 5, offset: (currentPage - 1) * 5 }).then((results) => {
+      const pageNumbers = [];
+      for (let i = 1; i <= results.pages; i += 1) {
+        pageNumbers.push(i);
+      }
+      console.log(req.query.page);
+      console.log('here');
+      console.log(results.pages);
+      res.render('rides-index',
+        {
+          rides: results.docs,
+          pagesCount: results.pages,
+          currentPage,
           currentUser,
         });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    });
   });
+
 
   app.get('/users/:id', (req, res) => {
     const currentUser = req.user;
