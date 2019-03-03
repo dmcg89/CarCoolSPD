@@ -20,6 +20,13 @@ app.use(methodOverride('_method'));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+// TEMPLATE configuration ===============================================================
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main',
+  helpers: require('handlebars-helpers')(),
+}));
+app.set('view engine', 'handlebars');
+
 const checkAuth = (req, res, next) => {
   console.log('Checking authentication');
   if (typeof req.cookies.nToken === 'undefined' || req.cookies.nToken === null) {

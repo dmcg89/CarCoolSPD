@@ -19,12 +19,12 @@ module.exports = function (app) {
   app.get('/rides', (req, res) => {
     const currentUser = req.user;
     const currentPage = req.query.page || 1;
-    Ride.paginate({}, { limit: 5, currentPage }).then((results) => {
+    Ride.paginate({}, { limit: 5, offset: (currentPage - 1) * 5 }).then((results) => {
       const pageNumbers = [];
       for (let i = 1; i <= results.pages; i += 1) {
         pageNumbers.push(i);
       }
-      console.log(results.docs);
+      console.log(req.query.page);
       console.log('here');
       console.log(results.pages);
       res.render('rides-index',
