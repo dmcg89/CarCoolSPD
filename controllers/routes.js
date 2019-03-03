@@ -79,6 +79,7 @@ module.exports = function (app) {
         console.log('user not logged in');
         res.redirect('/login');
       }
+      // email driver that a user has joined their ride
       nodemailerMailgun.sendMail({
         from: 'no-reply@carcool.com',
         to: ride.author.email,
@@ -90,7 +91,7 @@ module.exports = function (app) {
         },
       })
         .then(info => {
-          console.log('Response: ' + info)
+          console.log(`Response: ${ info}`);
           res.redirect(`/rides/view/${ride._id}`)
         })
     })
