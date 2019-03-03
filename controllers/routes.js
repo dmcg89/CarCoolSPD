@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const Ride = require('../models/ride');
 const User = require('../models/user');
 
-
 //  index
 
 module.exports = function (app) {
@@ -16,6 +15,8 @@ module.exports = function (app) {
   //       console.log(err);
   //     });
   // });
+
+  //  index route withe pagination
   app.get('/rides', (req, res) => {
     const currentUser = req.user;
     const currentPage = req.query.page || 1;
@@ -24,9 +25,6 @@ module.exports = function (app) {
       for (let i = 1; i <= results.pages; i += 1) {
         pageNumbers.push(i);
       }
-      console.log(req.query.page);
-      console.log('here');
-      console.log(results.pages);
       res.render('rides-index',
         {
           rides: results.docs,
@@ -154,8 +152,8 @@ module.exports = function (app) {
       res.redirect('/rides');
     }).catch((err) => {
       console.log(err.message);
-    })
-  })
+    });
+  });
 
   // edit page
   app.get('/rides/view/:id/edit', (req, res) => {
