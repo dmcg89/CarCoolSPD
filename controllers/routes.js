@@ -1,8 +1,21 @@
 const jwt = require('jsonwebtoken');
+
+// nodemailer/mailgun
+const nodemailer = require('nodemailer');
+
+const mg = require('nodemailer-mailgun-transport');
+
+const auth = {
+  auth: {
+    api_key: process.env.MAILGUN_API_KEY,
+    domain: process.env.EMAIL_DOMAIN,
+  },
+};
+const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+
 const Ride = require('../models/ride');
 const User = require('../models/user');
 
-//  index
 
 module.exports = function (app) {
   // app.get('/rides', (req, res) => {
@@ -16,7 +29,7 @@ module.exports = function (app) {
   //     });
   // });
 
-  //  index route withe pagination
+  //  index route with pagination
   app.get('/rides', (req, res) => {
     const currentUser = req.user;
     const currentPage = req.query.page || 1;
@@ -52,7 +65,12 @@ module.exports = function (app) {
   app.post('/rides/view/:id/adduser', (req, res) => {
     const currentUser = req.user;
     console.log(req.body);
+
     Ride.findById(req.params.id).then((ride) => {
+      const user = {
+        email: ride.author.email,
+        name: 'Emily',
+      };
       if (currentUser) {
         ride.users.push(currentUser);
         ride.save();
@@ -61,9 +79,25 @@ module.exports = function (app) {
         console.log('user not logged in');
         res.redirect('/login');
       }
-    }).catch((err) => {
-      console.log(err.message);
-    });
+      nodemailerMailgun.sendMail({
+        from: 'no-reply@carcool.com',
+        to: ride.author.email,
+        subject: 'A rider joined your ride!',
+        template: {
+          name: 'email.handlebars',
+          engine: 'handlebars',
+          context: user,
+        },
+      })
+        .then(info => {
+          console.log('Response: ' + info)
+          res.redirect(`/rides/view/${ride._id}`)
+        })
+    })
+
+      .catch((err) => {
+        console.log(err.message);
+      });
   });
 
   // delete user/rider from ride

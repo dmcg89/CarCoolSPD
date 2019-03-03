@@ -28,42 +28,6 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
-// nodemailer/mailgun
-
-const nodemailer = require('nodemailer');
-const mg = require('nodemailer-mailgun-transport');
-
-const auth = {
-  auth: {
-    api_key: process.env.MAILGUN_API_KEY,
-    domain: process.env.EMAIL_DOMAIN,
-  },
-};
-
-const nodemailerMailgun = nodemailer.createTransport(mg(auth));
-
-// SEND EMAIL
-const user = {
-  email: 'michael.mcgowan@students.makeschool.com',
-  name: 'Emily',
-  age: '43',
-};
-
-nodemailerMailgun.sendMail({
-  from: 'no-reply@example.com',
-  to: user.email, // An array if you have multiple recipients.
-  subject: 'Hey you, awesome!',
-  template: {
-    name: 'email.handlebars',
-    engine: 'handlebars',
-    context: user,
-  },
-}).then(info => {
-  console.log('Response: ' + info);
-}).catch(err => {
-  console.log('Error: ' + err);
-});
-
 const checkAuth = (req, res, next) => {
   console.log('Checking authentication');
   if (typeof req.cookies.nToken === 'undefined' || req.cookies.nToken === null) {
