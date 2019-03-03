@@ -14,7 +14,7 @@ const Ride = require('./models/ride');
 const port = process.env.PORT || 3000;
 
 app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(`${__dirname}/public`));
 app.use(methodOverride('_method'));
 
 // handlebars set up
