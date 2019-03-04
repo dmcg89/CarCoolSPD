@@ -18,17 +18,6 @@ const User = require('../models/user');
 
 
 module.exports = function (app) {
-  // app.get('/rides', (req, res) => {
-  //   const currentUser = req.user;
-  //   Ride.find()
-  //     .then(rides => {
-  //       res.render('rides-index', { rides: rides, currentUser });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // });
-
   //  index route with pagination
   app.get('/rides', (req, res) => {
     const currentUser = req.user;
@@ -115,9 +104,9 @@ module.exports = function (app) {
         },
       })
         .then(info => {
-          console.log(`Response: ${ info}`);
+          console.log(`Response: ${info}`);
           res.redirect(`/rides/view/${ride._id}`)
-        })
+        });
     })
 
       .catch((err) => {
@@ -231,13 +220,12 @@ module.exports = function (app) {
   //     })
   // })
 
-  app.post("/rides/view", (req, res) => {
-    console.log(req.user)
+  app.post('/rides/view', (req, res) => {
+    console.log(req.user);
+    const ride = new Ride(req.body);
     if (req.user) {
-      var ride = new Ride(req.body);
       ride.author = req.user._id;
       console.log(ride.author)
-
       ride
         .save()
         .then(ride => {
@@ -247,14 +235,14 @@ module.exports = function (app) {
           user.rides.unshift(ride);
           user.save();
           // REDIRECT TO THE NEW POST
-          res.redirect("/rides/view/" + ride._id);
+          res.redirect(`/rides/view/${ride._id}`);
         })
         .catch(err => {
-          console.log("failed!")
+          console.log('failed!');
           console.log(err.message);
         });
     } else {
-      console.log("failed authentication!")
+      console.log('failed authentication!');
       return res.status(401); // UNAUTHORIZED
     }
   });
@@ -267,15 +255,15 @@ module.exports = function (app) {
       })
       .catch(err => {
         console.log(err.message);
-      })
-  })
+      });
+  });
 
   app.get('/', (req, res) => {
-    var currentUser = req.user;
+    const currentUser = req.user;
     res.render('home', {
-      currentUser
-    })
-  })
+      currentUser,
+    });
+  });
 
 
   app.get('/rides/new', (req, res) => {
@@ -296,8 +284,8 @@ module.exports = function (app) {
 
   // Login form
   app.get('/login', (req, res) => {
-    res.render('login')
-  })
+    res.render('login');
+  });
 
   // LOGOUT
   app.get('/logout', (req, res) => {
