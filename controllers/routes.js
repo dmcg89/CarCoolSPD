@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer');
 
 const mg = require('nodemailer-mailgun-transport');
 
+const { sendWelcomeEmail } = require('../middleware/mailgun-config');
+
 const auth = {
   auth: {
     api_key: process.env.MAILGUN_API_KEY,
@@ -37,7 +39,7 @@ module.exports = function (app) {
     });
   });
 
-  // Search
+  // Search updated with pagination
   app.get('/search', (req, res) => {
     const term = new RegExp(req.query.term, 'i');
     const currentPage = req.query.page || 1;
@@ -311,6 +313,7 @@ module.exports = function (app) {
         httpOnly: true
       });
       res.redirect('/rides');
+      sendWelcomeEmail(user);
     }).catch((err) => {
       console.log(err.message);
       return res.status(400).send({
