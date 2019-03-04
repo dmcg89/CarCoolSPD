@@ -45,7 +45,8 @@ app.use(checkAuth);
 
 module.exports = app;
 
-const rides = require('./controllers/routes')(app, Ride);
+const rides = require('./controllers/routes')(app);
+const auth = require('./controllers/auth')(app);
 
 app.listen(port, () => {
   console.log('App Listening on port 3000');
