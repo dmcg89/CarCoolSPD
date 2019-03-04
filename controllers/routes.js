@@ -77,10 +77,9 @@ module.exports = function (app) {
         ride.save();
         res.redirect(`/rides/view/${ride._id}`);
         sendAuthRiderJoinedEmail(currentUser, ride.author);
-        console.log('here1');
-        sendRiderJoinedEmail(currentUser, ride.author);
         console.log('here');
         console.log(currentUser.email);
+        sendRiderJoinedEmail(currentUser, ride.author);
       } else {
         console.log('user not logged in');
         res.redirect('/login');
@@ -282,40 +281,38 @@ module.exports = function (app) {
       var token = jwt.sign({
         _id: user._id,
         username: user.username,
+        email: user.email,
         hasCar: user.hasCar
       }, process.env.SECRET, {
         expiresIn: "60 days"
       });
       res.cookie('nToken', token, {
         maxAge: 900000,
-        httpOnly: true
+        httpOnly: true,
       });
       res.redirect('/rides');
       sendWelcomeEmail(user);
     }).catch((err) => {
       console.log(err.message);
       return res.status(400).send({
-        err: err
+        err,
       });
     });
   });
 
   // LOGIN
-  app.post("/login", (req, res) => {
-    console.log("this ran the login post")
+  app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username);
-    console.log(password);
     // Find this user name
     User.findOne({
-        username
-      }, "username password hasCar")
+      username,
+    }, 'username password hasCar')
       .then(user => {
         if (!user) {
           // User not found
           return res.status(401).send({
-            message: "Wrong Username or Password"
+            message: 'Wrong Username or Password'
           });
         }
         // Check the password
@@ -323,23 +320,24 @@ module.exports = function (app) {
           if (!isMatch) {
             // Password does not match
             return res.status(401).send({
-              message: "Wrong Username or password"
+              message: 'Wrong Username or password'
             });
           }
 
           // Create a token
-          console.log(user)
+          console.log(user);
           const token = jwt.sign({
             _id: user._id,
             username: user.username,
-            hasCar: user.hasCar
+            email: user.email,
+            hasCar: user.hasCar,
           }, process.env.SECRET, {
-            expiresIn: "60 days"
+            expiresIn: '60 days',
           });
           // Set a cookie and redirect to root
-          res.cookie("nToken", token, {
+          res.cookie('nToken', token, {
             maxAge: 900000,
-            httpOnly: true
+            httpOnly: true,
           });
           res.redirect('/rides');
         });
@@ -348,4 +346,4 @@ module.exports = function (app) {
         console.log(err);
       });
   });
-}
+};
