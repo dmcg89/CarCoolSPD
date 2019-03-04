@@ -1,19 +1,9 @@
 const jwt = require('jsonwebtoken');
-
-// nodemailer/mailgun
-const nodemailer = require('nodemailer');
-
-const mg = require('nodemailer-mailgun-transport');
-
-const { sendWelcomeEmail } = require('../middleware/mailgun-config');
-
-const auth = {
-  auth: {
-    api_key: process.env.MAILGUN_API_KEY,
-    domain: process.env.EMAIL_DOMAIN,
-  },
-};
-const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+const {
+  sendWelcomeEmail,
+  sendAuthRiderJoinedEmail,
+  sendRiderJoinedEmail,
+} = require('../middleware/mailgun-config');
 
 const Ride = require('../models/ride');
 const User = require('../models/user');
@@ -82,35 +72,23 @@ module.exports = function (app) {
     console.log(req.body);
 
     Ride.findById(req.params.id).then((ride) => {
-      const user = {
-        email: ride.author.email,
-        name: 'Emily',
-      };
       if (currentUser) {
         ride.users.push(currentUser);
         ride.save();
         res.redirect(`/rides/view/${ride._id}`);
+        sendAuthRiderJoinedEmail(currentUser, ride.author);
+        console.log('here1');
+        sendRiderJoinedEmail(currentUser, ride.author);
+        console.log('here');
+        console.log(currentUser.email);
       } else {
         console.log('user not logged in');
         res.redirect('/login');
       }
-      // email driver that a user has joined their ride
-      nodemailerMailgun.sendMail({
-        from: 'no-reply@carcool.com',
-        to: ride.author.email,
-        subject: 'A rider joined your ride!',
-        template: {
-          name: 'email.handlebars',
-          engine: 'handlebars',
-          context: user,
-        },
-      })
-        .then(info => {
-          console.log(`Response: ${info}`);
-          res.redirect(`/rides/view/${ride._id}`)
-        });
     })
-
+      .then(info => {
+        console.log(`Response: ${info}`);
+      })
       .catch((err) => {
         console.log(err.message);
       });

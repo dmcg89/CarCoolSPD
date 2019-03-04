@@ -1,6 +1,4 @@
-module.exports = field => {
-  return function (next) {
-    this.populate(field);
-    next();
-  };
+module.exports = field => function (next) {
+  this.populate(field);
+  next();
 };
