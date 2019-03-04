@@ -48,6 +48,30 @@ module.exports = function (app) {
     });
   });
 
+  // Search
+  app.get('/search', (req, res) => {
+    const term = new RegExp(req.query.term, 'i');
+    const currentPage = req.query.page || 1;
+
+    Ride.paginate({
+      $or: [
+        { start: term },
+        { finish: term },
+      ],
+    },
+    { limit: 5, offset: (currentPage - 1) * 5 }).then((results) => {
+      const pageNumbers = [];
+      for (let i = 1; i <= results.pages; i += 1) {
+        pageNumbers.push(i);
+      }
+      res.render('rides-index', {
+        rides: results.docs,
+        pagesCount: results.pages,
+        currentPage,
+        term: req.query.term,
+      });
+    });
+  });
 
   app.get('/users/:id', (req, res) => {
     const currentUser = req.user;
@@ -122,25 +146,6 @@ module.exports = function (app) {
       }
     }).catch((err) => {
       console.log(err.message);
-    });
-  });
-
-  // Search
-  app.get('/search', (req, res) => {
-    const term = new RegExp(req.query.term, 'i');
-
-    Ride.find({
-      $or: [{
-        start: term,
-      },
-      {
-        finish: term,
-      },
-      ],
-    }).exec((err, rides) => {
-      res.render('rides-index', {
-        rides,
-      });
     });
   });
 
