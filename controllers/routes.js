@@ -53,17 +53,17 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/users/:id', (req, res) => {
-    const currentUser = req.user;
-    User.findById(req.params.id).then((user) => {
-      res.render('user-show', {
-        currentUser,
-        user,
-      });
-    }).catch((err) => {
-      console.log(err.message);
-    });
-  });
+  // app.get('/users/:id', (req, res) => {
+  //   const currentUser = req.user;
+  //   User.findById(req.params.id).then((user) => {
+  //     res.render('user-show', {
+  //       currentUser,
+  //       user,
+  //     });
+  //   }).catch((err) => {
+  //     console.log(err.message);
+  //   });
+  // });
 
   //  add rider to ride
   app.post('/rides/view/:id/adduser', (req, res) => {
