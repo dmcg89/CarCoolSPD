@@ -9,7 +9,7 @@ if (document.querySelector('#new-user')) {
     axios.post('/users', user, {
       headers: {
         'Content-Type': 'multipart/form-data;',
-      }
+      }te
     })
     .then(function (response) {
       window.location.replace(`/pets/${response.data.pet._id}`);
