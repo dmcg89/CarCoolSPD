@@ -1,7 +1,37 @@
 const jwt = require('jsonwebtoken');
+
+const multer = require('multer');
+
+const upload = multer({ dest: 'uploads/' });
+const Upload = require('s3-uploader');
+
 const { sendWelcomeEmail } = require('../middleware/mailgun-config');
 
+const client = new Upload(process.env.S3_BUCKET, {
+  aws: {
+    path: 'sign-up/avatar',
+    region: process.env.S3_REGION,
+    acl: 'public-read',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+  cleanup: {
+    versions: true,
+    original: true,
+  },
+  versions: [{
+    maxWidth: 400,
+    aspect: '16:10',
+    suffix: '-standard',
+  }, {
+    maxWidth: 300,
+    aspect: '1:1',
+    suffix: '-square',
+  }],
+});
+
 const User = require('../models/user');
+
 
 module.exports = function (app) {
   // SIGN UP FORM
@@ -21,7 +51,7 @@ module.exports = function (app) {
   });
 
   // SIGN UP POST
-  app.post('/sign-up', (req, res) => {
+  app.post('/sign-up', upload.single('avatar'), (req, res, next) => {
     // Create User and JWT
     const user = new User(req.body);
 
