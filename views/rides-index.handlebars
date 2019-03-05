@@ -28,10 +28,54 @@
         {{/each}}
     </div>
 
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {{#is currentPage 1}}
+         <a>
+           <li class="page-button disabled">
+             Prev
+           </li>
+         </a>
+       {{else}}
+         <a href="?term={{@root.searchQuery}}&page={{subtract currentPage 1}}">
+           <li class="page-button">
+             Prev
+           </li>
+         </a>
+       {{/is}}
+       {{!-- numbered page buttons --}}
+       <p>{{pageNumbers}}</p>
+       {{#each pageNumbers}}
+           <a href="?term={{@root.searchQuery}}&page={{this}}">
+             {{#is this @root.currentPage}}
+             <li class="page-button current">
+             {{else}}
+             <li class="page-button">
+             {{/is}}
+               {{this}}
+             </li>
+           </a>
+       {{/each}}
+       {{!-- next page button --}}
+       {{#is currentPage numPages}}
+         <a>
+           <li class="page-button disabled">
+             Next
+           </li>
+         </a>
+       {{else}}
+         <a href="?term={{@root.searchQuery}}&page={{sum currentPage 1}}">
+           <li class="page-button">
+             Next
+           </li>
+         </a>
+       {{/is}}
+      </ul>
+    </nav>
+
 
     <footer class="ride-footer">
 
-        <a href="#">Back to top</a>
     </footer>
 
 

@@ -20,12 +20,15 @@
     "eslinter": "^3.2.1",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
+    "handlebars-helpers": "^0.10.0",
     "jquery": "^3.0.0",
     "jsonwebtoken": "^8.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.3.4",
     "mongoose-paginate": "^5.0.3",
     "nodemon": "^1.18.10",
+    "nodemailer": "^5.1.1",
+    "nodemailer-mailgun-transport": "^1.4.0",
     "popper.js": "^1.14.4"
   },
   "devDependencies": {

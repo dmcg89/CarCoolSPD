@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const Populate = require('../utils/autopopulate');
 
+const Schema = mongoose.Schema;
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/CarCool', { useNewUrlParser: true });
 
 mongoosePaginate.paginate.options = {
   limit: 5, // how many records per page
 };
-
-const Schema = mongoose.Schema;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/CarCool', { useNewUrlParser: true });
 
 const User = require('./user');
 
