@@ -53,18 +53,6 @@ module.exports = function (app) {
     });
   });
 
-  // app.get('/users/:id', (req, res) => {
-  //   const currentUser = req.user;
-  //   User.findById(req.params.id).then((user) => {
-  //     res.render('user-show', {
-  //       currentUser,
-  //       user,
-  //     });
-  //   }).catch((err) => {
-  //     console.log(err.message);
-  //   });
-  // });
-
   //  add rider to ride
   app.post('/rides/view/:id/adduser', (req, res) => {
     const currentUser = req.user;
@@ -123,10 +111,6 @@ module.exports = function (app) {
     Ride.findById(req.params.id).then((ride) => {
       let userIsAuthor;
       if (currentUser) {
-        console.log(currentUser._id);
-        console.log(ride.author._id);
-        console.log(ride.users);
-
         userIsAuthor = (currentUser._id == ride.author._id);
         let index = ride.users.indexOf(currentUser._id);
         userNotInRide = (index < 0);
@@ -140,8 +124,14 @@ module.exports = function (app) {
       User.find({
         _id: ride.users
       }).then(riders => {
-        console.log(riders)
-        res.render('rides-show', { ride, currentUser, userIsAuthor, seatsLeft, riders, userNotInRide })
+        res.render('rides-show', {
+          ride,
+          currentUser,
+          userIsAuthor,
+          seatsLeft,
+          riders,
+          userNotInRide,
+        });
       });
       console.log(seatsLeft);
     }).catch((err) => {

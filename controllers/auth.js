@@ -54,6 +54,7 @@ module.exports = function (app) {
   app.post('/sign-up', upload.single('avatar'), (req, res, next) => {
     // Create User and JWT
     const user = new User(req.body);
+    console.log(req.body);
 
     user.save().then((user) => {
       var token = jwt.sign({
@@ -68,6 +69,27 @@ module.exports = function (app) {
         maxAge: 900000,
         httpOnly: true,
       });
+      console.log('here');
+      console.log(req.file);
+      console.log(user.avatarURL);
+
+      if (req.file) {
+        client.upload(req.file.path, {}, function (err, versions, meta) {
+          if (err) { return res.status(400).send({ err: err }) };
+
+          versions.forEach(function (image) {
+            var urlArray = image.url.split('-');
+            urlArray.pop();
+            var url = urlArray.join('-');
+            user.avatarURL = url;
+            user.save();
+          });
+
+          // res.send({ user });
+        });
+      // } else {
+      //   res.send({ user });
+      }
       res.redirect('/rides');
       sendWelcomeEmail(user);
     }).catch((err) => {

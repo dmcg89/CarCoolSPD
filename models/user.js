@@ -13,6 +13,7 @@ const UserSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String },
   rides: [{ type: Schema.Types.ObjectId, ref: 'Ride' }],
+  avatarURL: { type: String },
 });
 
 // Must use function here! ES6 => functions do not bind this!
