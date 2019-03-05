@@ -1,3 +1,17 @@
 <!-- home.handlebars -->
-<h1>Landing page!</h1>
-<a href="/rides"><p class="username">rides</p></a>
+<link rel="stylesheet" href="/styles/home.css">
+
+<div class="landing">
+  <img src="https://moneydotcomvip.files.wordpress.com/2016/03/160303_em_makecarlast.jpg">
+  <a class="title" href="{{#if currentUser}}/rides{{else}}/{{/if}}">
+    <h1><span class="highlight">C</span>ar<span class="highlight">C</span>ool</h1>
+  </a>
+  <nav>
+    <a href="/login" class='submit'>
+      <p class="username">Login</p>
+    </a>
+    <a href="/sign-up" class='submit'>
+      <p class="username">Sign Up</p>
+    </a>
+  </nav>
+</div>

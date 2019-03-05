@@ -41,6 +41,7 @@ body {
 
 /* NavBar */
 .navbar {
+    z-index: 1;
     position: fixed;
     top: 0;
     width: calc(100% - 100px);
@@ -354,4 +355,66 @@ body {
 
 .userlink:hover {
     background: var(--input-hover);
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.pagination a {
+    padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-style: italic;
+}
+
+.pagination a:hover {
+    background: var(--input-hover)
+}
+
+.landing {
+    overflow: hidden;
+}
+
+.landing img {
+    /* height: 75vh; */
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.landing nav {
+    position: fixed;
+    width: 50vw;
+    left: 50vw;
+    z-index: 2;
+    display: flex;
+    top: 75vh;
+    justify-content: space-around;
+
+}
+
+.landing a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.landing .title {
+    position: fixed;
+    z-index: 2;
+    width: 100vw;
+    text-align: center;
+    margin: 0px;
+    left: 0px;
+    top: 8vh;
+    font-size: 3em;
 }

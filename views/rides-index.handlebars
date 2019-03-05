@@ -44,14 +44,15 @@
          </a>
        {{/is}}
        {{!-- numbered page buttons --}}
-       {{#each pageNumbers as |pageNumber|}}
-           <a href="?term={{@root.searchQuery}}&page={{pageNumber}}">
-             {{#is pageNumber @root.currentPage}}
+       <p>{{pageNumbers}}</p>
+       {{#each pageNumbers}}
+           <a href="?term={{@root.searchQuery}}&page={{this}}">
+             {{#is this @root.currentPage}}
              <li class="page-button current">
              {{else}}
              <li class="page-button">
              {{/is}}
-               {{pageNumber}}
+               {{this}}
              </li>
            </a>
        {{/each}}
@@ -75,7 +76,6 @@
 
     <footer class="ride-footer">
 
-        <a href="#">Back to top</a>
     </footer>
 
 
