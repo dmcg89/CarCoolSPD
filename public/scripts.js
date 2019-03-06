@@ -7,9 +7,9 @@ if (document.querySelector('#new-user')) {
 
         // Assign the multipart/form-data headers to axios does a proper post
         axios.post('/sign-up', user, {
-            headers: {
-                'Content-Type': 'multipart/form-data;',
-            }
+            // headers: {
+            //     'Content-Type': 'multipart/form-data;',
+            // }
         })
             .then(function (response) {
                 window.location.replace(`/users/${response.data.user._id}`);
