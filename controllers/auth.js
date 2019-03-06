@@ -83,6 +83,7 @@ module.exports = function (app) {
             var url = urlArray.join('-');
             user.avatarURL = url;
             user.save();
+            console.log(user.avatarURL);
           });
 
           // res.send({ user });

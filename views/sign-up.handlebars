@@ -1,6 +1,6 @@
 <div class="form-container">
   <h1 class="legend">Sign Up!</h1>
-  <form class="form" action="/sign-up" method="POST" id="new-user">
+  <form class="form" action="/sign-up" method="POST" id="new-user" enctype='multipart/form-data' >
     <div class="form-group">
       <input for="user-username" type="text" name="username" class="text" id="username">
       <label for="user-username">Username</label>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="form-group">
-      <input type="file" name="avatarURL">
+      <input type="file" name="avatar">
       <label for="avatarURL">Profile Picture</label>
     </div>
     <div class='form-group'>
