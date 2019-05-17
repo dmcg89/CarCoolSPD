@@ -149,10 +149,10 @@ module.exports = function (app) {
     });
   });
 
-  // delete
+  // delete  - refactored with esling
 
-  app.delete('/rides/view/:id', function (req, res) {
-    console.log("Delete Ride");
+  app.delete('/rides/view/:id', (req, res) => {
+    console.log('Delete Ride');
     Ride.findByIdAndRemove(req.params.id).then((ride) => {
       res.redirect('/rides');
     }).catch((err) => {
@@ -160,7 +160,7 @@ module.exports = function (app) {
     });
   });
 
-  // edit page
+  // edit page - refactored with es_lint
   app.get('/rides/view/:id/edit', (req, res) => {
     const currentUser = req.user;
     if (currentUser) {
