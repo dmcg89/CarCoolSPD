@@ -135,7 +135,7 @@ describe('Ride', ()  => {
   });
 
   // Test login
-  it('should login user and return and a cookie', (done) => {
+  it('should login user and return status 200', (done) => {
     const user2 = {
       username: 'testtesttest',
       password: 'testestes',
