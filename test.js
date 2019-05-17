@@ -134,6 +134,25 @@ describe('Ride', ()  => {
         }).catch((err) => done(err))
   });
 
+  // Test login
+  it('should login user and return and a cookie', (done) => {
+    const user2 = {
+      username: 'testtesttest',
+      password: 'testestes',
+    };
+    chai.request(server)
+      .post('/login')
+      .send({
+        username: user2.username,
+        password: user2.password,
+      })
+      .then((res) => {
+        expect(res).to.have.status(200);
+        return done();
+      })
+      .catch(err => done(err));
+  });
+
     // TEST DELETE
     it('should delete a SINGLE ride on /rides/<id> DELETE', (done) => {
         var ride = new Ride(sampleRide);
