@@ -36,6 +36,13 @@ describe('Ride', ()  => {
         })
     });
 
+    after(() => {
+        User.deleteMany({route: 'route'}).exec((err, users) => {
+            console.log(user)
+            users.remove();
+        })
+    });
+
     // TEST INDEX
     it('should index ALL rides on / GET', (done) => {
         chai.request(server)
@@ -119,6 +126,7 @@ describe('Ride', ()  => {
       .post('/sign-up')
       .send({
           username: user2.username,
+          password: user2.password,
       })
         .then((res) => {
             expect(res).to.have.status(200)
