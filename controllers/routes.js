@@ -162,15 +162,14 @@ module.exports = function (app) {
 
   // edit page
   app.get('/rides/view/:id/edit', (req, res) => {
-    var currentUser = req.user;
+    const currentUser = req.user;
     if (currentUser) {
-      Ride.findById(req.params.id, function (err, ride) {
-        let userIsAuthor;
-        userIsAuthor = (currentUser._id == ride.author._id);
+      Ride.findById(req.params.id, (err, ride) => {
+        const userIsAuthor = (currentUser._id === ride.author._id);
         if (userIsAuthor) {
           res.render('rides-edit', {
-            ride: ride,
-            currentUser
+            ride,
+            currentUser,
           });
         } else {
           console.log('failed authentication on edit! Wrong user');
