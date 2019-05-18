@@ -25,8 +25,9 @@ module.exports = function (app) {
     // Create User and JWT
     const user = new User(req.body);
 
+    // eslint-disable-next-line no-shadow
     user.save().then((user) => {
-      var token = jwt.sign({
+      const token = jwt.sign({
         _id: user._id,
         username: user.username,
         email: user.email,
@@ -57,41 +58,41 @@ module.exports = function (app) {
       username,
     }, 'username password hasCar')
     .then(user => {
-      if (!user) {
+        if (!user) {
         // User not found
-        return res.status(401).send({
-          message: 'Wrong Username or Password'
-        });
-      }
-      // Check the password
-      user.comparePassword(password, (err, isMatch) => {
-        if (!isMatch) {
-          // Password does not match
           return res.status(401).send({
-            message: 'Wrong Username or password'
+            message: 'Wrong Username or Password'
           });
         }
+        // Check the password
+        user.comparePassword(password, (err, isMatch) => {
+          if (!isMatch) {
+          // Password does not match
+            return res.status(401).send({
+              message: 'Wrong Username or password',
+            });
+          }
 
-        // Create a token
-        console.log(user);
-        const token = jwt.sign({
-          _id: user._id,
-          username: user.username,
-          email: user.email,
-          hasCar: user.hasCar,
-        }, process.env.SECRET, {
-          expiresIn: '60 days',
+          // Create a token
+          console.log(user);
+          const token = jwt.sign({
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            hasCar: user.hasCar,
+          }, process.env.SECRET, {
+            expiresIn: '60 days',
+          });
+          // Set a cookie and redirect to root
+          res.cookie('nToken', token, {
+            maxAge: 900000,
+            httpOnly: true,
+          });
+          res.redirect('/rides');
         });
-        // Set a cookie and redirect to root
-        res.cookie('nToken', token, {
-          maxAge: 900000,
-          httpOnly: true,
-        });
-        res.redirect('/rides');
-      });
-    })
+      })
     .catch(err => {
-      console.log(err);
-    });
+        console.log(err);
+      });
   });
-}
+};
