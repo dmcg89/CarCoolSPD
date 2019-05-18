@@ -20,14 +20,13 @@ chai.use(chaiHttp);
 
 describe('Ride', ()  => {
 
-    after(() => {
-        Ride.deleteMany({route: 'route'}).exec((err, rides) => {
-            console.log(rides)
-            rides.remove();
-        })
+  after(() => {
+    Ride.deleteMany({ route: 'route' }).exec((err, rides) => {
+      rides.remove();
     });
+  });
 
-    after(() => {
+   after(() => {
         User.deleteMany({route: 'route'}).exec((err, users) => {
             console.log(user)
             users.remove();
