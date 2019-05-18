@@ -190,9 +190,7 @@ module.exports = function (app) {
       console.log(ride.author)
       ride
         .save()
-        .then(ride => {
-          return User.findById(req.user._id);
-        })
+        .then(() => User.findById(req.user._id))
         .then(user => {
           user.rides.unshift(ride);
           user.save();
