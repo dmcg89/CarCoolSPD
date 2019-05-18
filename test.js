@@ -8,17 +8,13 @@ const should = chai.should();
 const Ride = require('./models/ride');
 const User = require('./models/user');
 
-const sampleRide =     {
-    start: 'start',
-    finish: 'finish',
-    description: 'sampleride',
-    time: 'time',
-    seats: 5,
-    // hasDriver: True,
-    // driver: { type: Schema.Types.ObjectId, ref: 'User' },
-    // users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    // author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-}
+const sampleRide = {
+  description: 'sampleride',
+  finish: 'finish',
+  time: 'time',
+  start: 'start',
+  seats: 5,
+};
 
 chai.use(chaiHttp);
 
