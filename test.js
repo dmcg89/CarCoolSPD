@@ -119,19 +119,20 @@ describe('Ride', ()  => {
     // Test Signup
     it('should signup user', (done) => {
     const user2 = {
-        username: 'testtesttest',
-        password: 'testestes',
-    } ;
+      username: 'testtesttest',
+      password: 'testestes',
+    };
     chai.request(server)
       .post('/sign-up')
       .send({
-          username: user2.username,
-          password: user2.password,
+        username: user2.username,
+        password: user2.password,
       })
-        .then((res) => {
-            expect(res).to.have.status(200)
-             done()
-        }).catch((err) => done(err))
+      .then((res) => {
+        expect(res).to.have.status(200)
+        done();
+      })
+      .catch((err) => done(err));
   });
 
   // Test login
