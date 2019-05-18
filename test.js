@@ -19,19 +19,17 @@ const sampleRide = {
 chai.use(chaiHttp);
 
 describe('Ride', ()  => {
-
   after(() => {
     Ride.deleteMany({ route: 'route' }).exec((err, rides) => {
       rides.remove();
     });
   });
 
-   after(() => {
-        User.deleteMany({route: 'route'}).exec((err, users) => {
-            console.log(user)
-            users.remove();
-        })
+  after(() => {
+    User.deleteMany({ route: 'route' }).exec((err, users) => {
+      users.remove();
     });
+  });
 
     // TEST INDEX
     it('should index ALL rides on / GET', (done) => {
