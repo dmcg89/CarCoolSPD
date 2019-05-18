@@ -31,16 +31,16 @@ describe('Ride', ()  => {
     });
   });
 
-    // TEST INDEX
-    it('should index ALL rides on / GET', (done) => {
-        chai.request(server)
-        .get('/')
-        .end((err, res) => {
-            res.should.have.status(200);
-            res.should.be.html;
-            done();
-        });
-    });
+  // TEST INDEX
+  it('should index ALL rides on / GET', (done) => {
+    chai.request(server)
+      .get('/')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.html;
+        done();
+      });
+  });
 
   // TEST NEW
   // it('should display new form on /rides/new GET', (done) => {
