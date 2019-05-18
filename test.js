@@ -153,17 +153,17 @@ describe('Ride', ()  => {
       .catch(err => done(err));
   });
 
-    // TEST DELETE
-    it('should delete a SINGLE ride on /rides/<id> DELETE', (done) => {
-        var ride = new Ride(sampleRide);
-        ride.save((err, data)  => {
-            chai.request(server)
-            .delete(`/rides/view/${ride._id}?_method=DELETE`)
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.should.be.html
-                done();
-            });
+  // TEST DELETE
+  it('should delete a SINGLE ride on /rides/<id> DELETE', (done) => {
+    const ride = new Ride(sampleRide);
+    ride.save((err, data)  => {
+      chai.request(server)
+        .delete(`/rides/view/${ride._id}?_method=DELETE`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.be.html
+          done();
         });
     });
+  });
 });
