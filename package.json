@@ -24,7 +24,7 @@
     "jquery": "^3.0.0",
     "jsonwebtoken": "^8.3.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.3.4",
+    "mongoose": "^5.7.5",
     "mongoose-paginate": "^5.0.3",
     "nodemon": "^1.18.10",
     "nodemailer": "^5.1.1",
